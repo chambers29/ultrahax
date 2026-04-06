@@ -1,0 +1,1 @@
+https://github.com/haxball/haxball-issues/wiki

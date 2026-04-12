@@ -362,3 +362,6 @@ __marimo__/
 
 # Data folder
 data/
+
+# Generated files
+final_maps/

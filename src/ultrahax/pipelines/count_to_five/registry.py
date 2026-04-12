@@ -1,8 +1,6 @@
+from .steps import step_01_one, step_02_two, step_03_three, step_04_four
+
 from .steps import (
-    step_01_one,
-    step_02_two,
-    step_03_three,
-    step_04_four,
     step_05_five,
 )
 

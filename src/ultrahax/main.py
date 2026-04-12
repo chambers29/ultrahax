@@ -2,11 +2,12 @@ from pathlib import Path
 import argparse
 import importlib
 
-from src.core.config import load_yaml_config
-from src.core.runner import run_pipeline
+from ultrahax.core.config import load_yaml_config
+from ultrahax.core.runner import run_pipeline
 
 
-PIPELINES_DIR = Path("src/pipelines")
+BASE_DIR = Path(__file__).resolve().parent
+PIPELINES_DIR = BASE_DIR / "pipelines"
 
 
 def get_available_pipelines() -> list[str]:
@@ -30,7 +31,7 @@ def get_available_pipelines() -> list[str]:
 
 def choose_pipeline_interactively(pipelines: list[str]) -> str:
     if not pipelines:
-        raise ValueError("No pipelines found in src/pipelines.")
+        raise ValueError(f"No pipelines found in {PIPELINES_DIR}.")
 
     print("Available pipelines:")
     for index, pipeline_name in enumerate(pipelines, start=1):
@@ -54,7 +55,7 @@ def choose_pipeline_interactively(pipelines: list[str]) -> str:
 def load_step_registry(pipeline_name: str) -> dict:
     try:
         registry_module = importlib.import_module(
-            f"src.pipelines.{pipeline_name}.registry"
+            f"ultrahax.pipelines.{pipeline_name}.registry"
         )
     except ModuleNotFoundError as error:
         raise ModuleNotFoundError(
@@ -92,11 +93,12 @@ def main() -> None:
 
     config = load_yaml_config(config_path)
     step_registry = load_step_registry(pipeline_name)
+
     initial_context = {
         **config.get("input", {}),
         **config.get("output", {}),
         **config.get("context", {}).get("initial_values", {}),
-}
+    }
 
     run_pipeline(
         config=config,

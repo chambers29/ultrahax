@@ -1,0 +1,50 @@
+name: count_to_five
+description: Simple test pipeline that prints numbers from 1 to 5.
+enabled: true
+verbose: true
+version: 1
+
+input:
+  source_dir: null
+  source_file: null
+
+output:
+  target_dir: null
+  overwrite: false
+
+settings:
+  stop_on_error: true
+  dry_run: false
+
+context:
+  initial_values: {}
+
+steps:
+  - name: 01_one
+    enabled: true
+    depends_on: []
+    params: {}
+
+  - name: 02_two
+    enabled: true
+    depends_on:
+      - 01_one
+    params: {}
+
+  - name: 03_three
+    enabled: true
+    depends_on:
+      - 02_two
+    params: {}
+
+  - name: 04_four
+    enabled: true
+    depends_on:
+      - 03_three
+    params: {}
+
+  - name: 05_five
+    enabled: true
+    depends_on:
+      - 04_four
+    params: {}

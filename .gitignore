@@ -361,7 +361,8 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Data folder
-data/
+data/dirty_yamls
+data/dirty_hbs/*.hbs
 
 # Generated files
 final_maps/

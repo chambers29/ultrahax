@@ -1,0 +1,594 @@
+# StadiumObject
+name: M. Tel Aviv Arena - UEFA
+width: 1300
+# width: 2300
+height: 670
+kickOffReset: full
+bg: {type: grass, width: 1150, height: 600, kickOffRadius: 180, color: 86A578}
+vertexes:
+  - {x: 0, y: 675, bCoef: 0.1, cMask: [red, blue], cGroup: [redKO, blueKO]} #0
+  - {x: 0, y: 180, bCoef: 0.1, cMask: [red, blue], cGroup: [redKO, blueKO]} #1
+  - {x: 0, y: -180, bCoef: 0.1, cMask: [red, blue], cGroup: [redKO, blueKO]} #2
+  - {x: 0, y: -675, bCoef: 0.1, cMask: [red, blue], cGroup: [redKO, blueKO]} #3
+  - {x: 1150, y: 320, cMask: []} #4
+  - {x: 840, y: 320, cMask: []} #5
+  - {x: 1150, y: -320, cMask: []} #6
+  - {x: 840, y: -320, cMask: []} #7
+  - {x: 1150, y: 180, cMask: []} #8
+  - {x: 1030, y: 180, cMask: []} #9
+  - {x: 1150, y: -180, cMask: []} #10
+  - {x: 1030, y: -180, cMask: []} #11
+  - {x: 840, y: -130, cMask: []} #12
+  - {x: 840, y: 130, cMask: []} #13
+  - {x: -1150, y: -320, cMask: []} #14
+  - {x: -840, y: -320, cMask: []} #15
+  - {x: -1150, y: 320, cMask: []} #16
+  - {x: -840, y: 320, cMask: []} #17
+  - {x: -1150, y: -175, cMask: []} #18
+  - {x: -1030, y: -175, cMask: []} #19
+  - {x: -1150, y: 175, cMask: []} #20
+  - {x: -1030, y: 175, cMask: []} #21
+  - {x: -840, y: 130, cMask: []} #22
+  - {x: -840, y: -130, cMask: []} #23
+  - {x: 935, y: 3, cMask: []} #24
+  - {x: 935, y: -3, cMask: []} #25
+  - {x: -935, y: 3, cMask: []} #26
+  - {x: -935, y: -3, cMask: []} #27
+  - {x: -1150, y: 570, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #28
+  - {x: -1120, y: 600, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #29
+  - {x: -1120, y: -600, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #30
+  - {x: -1150, y: -570, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #31
+  - {x: 1120, y: 600, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #32
+  - {x: 1150, y: 570, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #33
+  - {x: 1150, y: -570, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #34
+  - {x: 1120, y: -600, bCoef: -2.9, cMask: [ball], cGroup: [c0]} #35
+  - {x: 0, y: 180, bCoef: 0.1, cMask: [red, blue], cGroup: [blueKO]} #36
+  - {x: 0, y: -180, bCoef: 0.1, cMask: [red, blue], cGroup: [redKO]} #37
+  - {x: 0, y: 180, bCoef: 0.1, cMask: [red, blue], cGroup: [redKO]} #38
+  - {x: -1030, y: -40, bCoef: -5.7, cMask: [ball], cGroup: [c0]} #39
+  - {x: -1030, y: 40, bCoef: -5.7, cMask: [ball], cGroup: [c0]} #40
+  - {x: 1030, y: -40, bCoef: -5.7, cMask: [ball], cGroup: [c0]} #41
+  - {x: 1030, y: 40, bCoef: -5.7, cMask: [ball], cGroup: [c0]} #42
+  - {x: 1030, y: -40, cMask: []} #43
+  - {x: 1030, y: 40, cMask: []} #44
+  - {x: -1030, y: -40, cMask: []} #45
+  - {x: -1030, y: 40, cMask: []} #46
+  - {x: 0, y: 3, cMask: []} #47
+  - {x: 0, y: -3, cMask: []} #48
+  - {x: -1300, y: -460, bCoef: 0, cMask: [c1], cGroup: [red, blue]} #49
+  - {x: 1300, y: -460, bCoef: 0, cMask: [c1], cGroup: [red, blue]} #50
+  - {x: -1300, y: 460, bCoef: 0, cMask: [c1], cGroup: [red, blue]} #51
+  - {x: 1300, y: 460, bCoef: 0, cMask: [c1], cGroup: [red, blue]} #52
+  - {x: -1295, y: -320, cMask: [c0], cGroup: [red, blue]} #53
+  - {x: -840, y: -320, cMask: [c0], cGroup: [red, blue]} #54
+  - {x: -840, y: 320, cMask: [c0], cGroup: [red, blue]} #55
+  - {x: -1295, y: 320, cMask: [c0], cGroup: [red, blue]} #56
+  - {x: 1295, y: -320, cMask: [c0], cGroup: [red, blue]} #57
+  - {x: 840, y: -320, cMask: [c0], cGroup: [red, blue]} #58
+  - {x: 840, y: 320, cMask: [c0], cGroup: [red, blue]} #59
+  - {x: 1295, y: 320, cMask: [c0], cGroup: [red, blue]} #60
+  - {x: -1150, y: -124, bCoef: 0.1, cMask: [red, blue, ball]} #61
+  # tu zmienione [red,blue]
+  - {x: -1210, y: -124, bCoef: 0.1, cMask: []} #62
+  - {x: -1150, y: 124, bCoef: 0.1, cMask: [red, blue, ball]} #63
+  # tu zmienione
+  - {x: -1210, y: 124, bCoef: 0.1, cMask: []} #64
+  - {x: -1250, y: -158, bCoef: 0, cMask: [ball]} #65
+  - {x: -1250, y: 158, bCoef: 0, cMask: [ball]} #66
+  - {x: 1150, y: 124, bCoef: 0.1, cMask: [red, blue, ball]} #67
+  # tu zmienione
+  - {x: 1210, y: 124, bCoef: 0.1, cMask: []} #68
+  - {x: 1150, y: -124, bCoef: 0.1, cMask: [red, blue, ball]} #69
+  # tu zmienione
+  - {x: 1210, y: -124, bCoef: 0.1, cMask: []} #70
+  - {x: 1250, y: -158, bCoef: 0, cMask: [ball]} #71
+  - {x: 1250, y: 158, bCoef: 0, cMask: [ball]} #72
+  - {x: 1148.5306719232, y: -646.5043537920002, bCoef: 0, cMask: [ball]} #73
+  - {x: 1148.5306719232, y: -600, bCoef: 0, cMask: [ball]} #74
+  - {x: 1148.5306719232, y: 646.5043537920002, bCoef: 0, cMask: [ball]} #75
+  - {x: 1148.5306719232, y: 600, bCoef: 0, cMask: [ball]} #76
+  - {x: -1148.5306719232, y: -646.5043537920002, bCoef: 0, cMask: [ball]} #77
+  - {x: -1148.5306719232, y: -600, bCoef: 0, cMask: [ball]} #78
+  - {x: -1148.5306719232, y: 646.5043537920002, bCoef: 0, cMask: [ball]} #79
+  - {x: -1148.5306719232, y: 600, bCoef: 0, cMask: [ball]} #80
+  # # star vertexes
+  # - {x: 0, y: 600, trait: Star} #81
+  # - {x: 173.205, y: 300, trait: Star} #82
+  # - {x: 519.615, y: 300, trait: Star} #83
+  # - {x: 346.41, y: 0, trait: Star} #84
+  # - {x: 519.615, y: -300, trait: Star} #85
+  # - {x: 173.205, y: -300, trait: Star} #86
+  # - {x: 0, y: -600, trait: Star} #87
+  # - {x: -173.205, y: -300, trait: Star} #88
+  # - {x: -519.615, y: -300, trait: Star} #89
+  # - {x: -346.41, y: 0, trait: Star} #90
+  # - {x: -519.615, y: 300, trait: Star} #91
+  # - {x: -173.205, y: 300, trait: Star} #92
+segments:
+  - {v0: 0, v1: 1, bCoef: 0.1, vis: false, cMask: [red, blue], cGroup: [redKO, blueKO]}
+  - {v0: 2, v1: 3, bCoef: 0.1, vis: false, cMask: [red, blue], cGroup: [redKO, blueKO]}
+  - {v0: 4, v1: 5, cMask: [], color: C7E6BD}
+  - {v0: 5, v1: 7, cMask: [], color: C7E6BD}
+  - {v0: 6, v1: 7, cMask: [], color: C7E6BD}
+  - {v0: 8, v1: 9, cMask: [], color: C7E6BD}
+  - {v0: 9, v1: 11, cMask: [], color: C7E6BD}
+  - {v0: 10, v1: 11, cMask: [], color: C7E6BD}
+  - {v0: 13, v1: 12, curve: 130, curveF: 0.4663076581549986, cMask: [], color: C7E6BD}
+  - {v0: 14, v1: 15, cMask: [], color: C7E6BD}
+  - {v0: 15, v1: 17, cMask: [], color: C7E6BD}
+  - {v0: 16, v1: 17, cMask: [], color: C7E6BD}
+  - {v0: 18, v1: 19, cMask: [], color: C7E6BD}
+  - {v0: 19, v1: 21, cMask: [], color: C7E6BD}
+  - {v0: 20, v1: 21, cMask: [], color: C7E6BD}
+  - {v0: 23, v1: 22, curve: 130, curveF: 0.4663076581549986, cMask: [], color: C7E6BD}
+  - {v0: 25, v1: 24, curve: 180, curveF: 6.123233995736766e-17, cMask: [], color: C7E6BD}
+  - {v0: 27, v1: 26, curve: 180, curveF: 6.123233995736766e-17, cMask: [], color: C7E6BD}
+  - {v0: 24, v1: 25, curve: 180, curveF: 6.123233995736766e-17, cMask: [], color: C7E6BD}
+  - {v0: 26, v1: 27, curve: 180, curveF: 6.123233995736766e-17, cMask: [], color: C7E6BD}
+  - {v0: 24, v1: 25, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [], color: C7E6BD}
+  - {v0: 26, v1: 27, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [], color: C7E6BD}
+  - {v0: 25, v1: 24, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [], color: C7E6BD}
+  - {v0: 27, v1: 26, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [], color: C7E6BD}
+  - {v0: 24, v1: 25, cMask: [], color: C7E6BD}
+  - {v0: 26, v1: 27, cMask: [], color: C7E6BD}
+  - {v0: 28, v1: 29, bCoef: -2.9, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [ball], cGroup: [c0], color: C7E6BD}
+  - {v0: 30, v1: 31, bCoef: -2.9, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [ball], cGroup: [c0], color: C7E6BD}
+  - {v0: 32, v1: 33, bCoef: -2.9, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [ball], cGroup: [c0], color: C7E6BD}
+  - {v0: 34, v1: 35, bCoef: -2.9, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [ball], cGroup: [c0], color: C7E6BD}
+  - {v0: 36, v1: 37, bCoef: 0.1, curve: 180, curveF: 6.123233995736766e-17, vis: false, cMask: [red, blue], cGroup: [blueKO]}
+  - {v0: 39, v1: 40, bCoef: -5.7, curve: 70, curveF: 1.4281480067421146, vis: false, cMask: [ball], cGroup: [c0], color: 576C46}
+  - {v0: 42, v1: 41, bCoef: -5.7, curve: 70, curveF: 1.4281480067421146, vis: false, cMask: [ball], cGroup: [c0], color: 576C46}
+  - {v0: 37, v1: 38, bCoef: 0.1, curve: 180, curveF: 6.123233995736766e-17, vis: false, cMask: [red, blue], cGroup: [redKO]}
+  - {v0: 43, v1: 44, cMask: [], color: 576C46}
+  - {v0: 45, v1: 46, cMask: [], color: 576C46}
+  - {v0: 48, v1: 47, curve: 180, curveF: 6.123233995736766e-17, cMask: [], color: C7E6BD}
+  - {v0: 47, v1: 48, curve: 180, curveF: 6.123233995736766e-17, cMask: [], color: C7E6BD}
+  - {v0: 47, v1: 48, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [], color: C7E6BD}
+  - {v0: 48, v1: 47, curve: 89.99999999999999, curveF: 1.0000000000000002, cMask: [], color: C7E6BD}
+  - {v0: 47, v1: 48, cMask: [], color: C7E6BD}
+  - {v0: 49, v1: 50, bCoef: 0, vis: false, cMask: [c1], cGroup: [red, blue], color: EC644B}
+  - {v0: 51, v1: 52, bCoef: 0, vis: false, cMask: [c1], cGroup: [red, blue], color: EC644B}
+  - {v0: 53, v1: 54, vis: false, cMask: [c0], cGroup: [red, blue], color: EC644B}
+  - {v0: 54, v1: 55, vis: false, cMask: [c0], cGroup: [red, blue], color: EC644B}
+  - {v0: 55, v1: 56, vis: false, cMask: [c0], cGroup: [red, blue], color: EC644B}
+  - {v0: 57, v1: 58, vis: false, cMask: [c0], cGroup: [red, blue]}
+  - {v0: 58, v1: 59, vis: false, cMask: [c0], cGroup: [red, blue]}
+  - {v0: 59, v1: 60, vis: false, cMask: [c0], cGroup: [red, blue]}
+  - {v0: 73, v1: 74, bCoef: 0, vis: false, cMask: [ball], cGroup: [ball], color: FFFF00}
+  - {v0: 75, v1: 76, bCoef: 0, vis: false, cMask: [ball], cGroup: [ball], color: FFFF00}
+  - {v0: 77, v1: 78, bCoef: 0, vis: false, cMask: [ball], cGroup: [ball], color: FFFF00}
+  - {v0: 79, v1: 80, bCoef: 0, vis: false, cMask: [ball], cGroup: [ball], color: FFFF00}
+# # star segments
+#   - {v0: 81, v1: 85, trait: Star}
+#   - {v0: 85, v1: 89, trait: Star}
+#   - {v0: 89, v1: 81, trait: Star}
+#   - {v0: 83, v1: 87, trait: Star}
+#   - {v0: 87, v1: 91, trait: Star}
+#   - {v0: 91, v1: 83, trait: Star}
+
+#   - {v0: 82, v1: 86, trait: Star}
+#   - {v0: 86, v1: 90, trait: Star}
+#   - {v0: 90, v1: 82, trait: Star}
+#   - {v0: 84, v1: 88, trait: Star}
+#   - {v0: 88, v1: 92, trait: Star}
+#   - {v0: 92, v1: 84, trait: Star}
+planes:
+  - {normal: [0, 1], dist: -627, bCoef: 0, cMask: [ball], cGroup: [ball]}
+  - {normal: [0, -1], dist: -627, bCoef: 0, cMask: [ball], cGroup: [ball]}
+  - {normal: [0, 1], dist: -670, bCoef: 0}
+  - {normal: [0, -1], dist: -670, bCoef: 0}
+  - {normal: [1, 0], dist: -1300, bCoef: 0}
+  - {normal: [-1, 0], dist: -1300, bCoef: 0.1}
+  # - {normal: [1, 0], dist: -1230, bCoef: 0, cMask: [ball], cGroup: [ball]}
+  # - {normal: [-1, 0], dist: -1230, bCoef: 0, cMask: [ball], cGroup: [ball]}
+goals:
+  - {p0: [-1161.45, 124], p1: [-1161.45, -124], team: red}
+  - {p0: [1161.45, 124], p1: [1161.45, -124], team: blue}
+discs:
+  # disc0 - ball
+  - {radius: 9, invMass: 1.05, cGroup: [ball, kick, score]}
+  # disc1 - ?
+  - {pos: [-1311, -19], radius: 0, bCoef: 0, invMass: 0, color: transparent, cMask: [red], cGroup: [ball]}
+  # disc2 - ?
+  - {pos: [-1310, 29], radius: 0, bCoef: 0, invMass: 0, color: transparent, cMask: [blue], cGroup: [ball]}
+  # disc3 - ?
+  - {pos: [-1308, 62], radius: 0, bCoef: 0, invMass: 0, color: transparent, cMask: [red, blue], cGroup: [ball]}
+  # disc4 - left bottom corner
+  - {pos: [-1150, 600], radius: 2.7, bCoef: 0.2, invMass: 0, color: FFFF00, cMask: [ball], cGroup: [ball]}
+  # disc5 - right top corner
+  - {pos: [1150, -600], radius: 2.7, bCoef: 0.2, invMass: 0, color: FFFF00, cMask: [ball], cGroup: [ball]}
+  # disc6 - right bottom corner
+  - {pos: [1150, 600], radius: 2.7, bCoef: 0.2, invMass: 0, color: FFFF00, cMask: [ball], cGroup: [ball]}
+  # disc7 - left GOAL post, upper
+  - {pos: [-1150, -124], trait: goalPost}
+  # disc8 - left GOAL post, lower
+  - {pos: [-1150, 124], trait: goalPost}
+  # disc9 - left GOAL post support, upper
+  - {pos: [-1250, -158], trait: goalPostSupport}
+  # disc10 - left GOAL post support, lower
+  - {pos: [-1250, 158], trait: goalPostSupport}
+  # disc11 - right GOAL post, upper
+  - {pos: [1150, -124], trait: goalPost}
+  # disc12 - right GOAL post, lower
+  - {pos: [1150, 124], trait: goalPost}
+  # disc13 - right GOAL post support, upper
+  - {pos: [1250, -158], trait: goalPostSupport}
+  # disc14 - right GOAL post support, lower
+  - {pos: [1250, 158], trait: goalPostSupport}
+  # disc15 - right top corner
+  - {pos: [-1150, -600], radius: 2.7, bCoef: 0.2, invMass: 0, color: FFFF00, cMask: [ball], cGroup: [ball]}
+  # disc16 - ?
+  - {pos: [-1149, -460], radius: 0, cMask: []}
+  # disc17 - ?
+  - {pos: [1149, -460], radius: 0, cMask: []}
+  # disc18 - ?
+  - {pos: [-1149, -460], radius: 0, cMask: []}
+  # disc19 - ?
+  - {pos: [1149, -460], radius: 0, cMask: []}
+  # disc20 - ?
+  - {pos: [-1149, 460], radius: 0, cMask: []}
+  # disc21 - ?
+  - {pos: [1149, 460], radius: 0, cMask: []}
+  # disc22 - ?
+  - {pos: [-1149, 460], radius: 0, cMask: []}
+  # disc23 - ?
+  - {pos: [1149, 460], radius: 0, cMask: []}
+
+# INSIDE GOAL CORNER DISCS
+  # disc24 - post inside goal - left lower
+  - {pos: [-1224.4, 124], trait: goalPostInside}
+  # disc25 - post inside goal - left upper
+  - {pos: [-1224.4, -124], trait: goalPostInside}
+  # disc26 - post inside goal - right lower
+  - {pos: [1224.4, 124], trait: goalPostInside}
+  # disc27 - post inside goal - right upper
+  - {pos: [1224.4, -124], trait: goalPostInside}
+
+# GOALNET DISCS
+# Left goalnet
+# LOWER NET
+  - {pos: [-1162.4, 124], trait: goalNetDiscBlue1} # disc28
+  - {pos: [-1168.6, 124], trait: goalNetDiscBlue2} # disc29
+  - {pos: [-1174.8, 124], trait: goalNetDiscYellow1} # disc30
+  - {pos: [-1181.0, 124], trait: goalNetDiscYellow2} # disc31
+  - {pos: [-1187.2, 124], trait: goalNetDiscBlue1} # disc32
+  - {pos: [-1193.4, 124], trait: goalNetDiscBlue2} # disc33
+  - {pos: [-1199.6, 124], trait: goalNetDiscYellow1} # disc34
+  - {pos: [-1205.8, 124], trait: goalNetDiscYellow2} # disc35
+  - {pos: [-1212.0, 124], trait: goalNetDiscBlue1} # disc36
+  # FRONT NET
+  - {pos: [-1224.4, 111.6], trait: goalNetDiscBlue2} # disc37
+  - {pos: [-1224.4, 105.4], trait: goalNetDiscYellow1} # disc38
+  - {pos: [-1224.4, 99.2], trait: goalNetDiscYellow2} # disc39
+  - {pos: [-1224.4, 93.0], trait: goalNetDiscBlue1} # disc40
+  - {pos: [-1224.4, 86.8], trait: goalNetDiscBlue2} # disc41
+  - {pos: [-1224.4, 80.6], trait: goalNetDiscYellow1} # disc42
+  - {pos: [-1224.4, 74.4], trait: goalNetDiscYellow2} # disc43
+  - {pos: [-1224.4, 68.2], trait: goalNetDiscBlue1} # disc44
+  - {pos: [-1224.4, 62.0], trait: goalNetDiscBlue2} # disc45
+  - {pos: [-1224.4, 55.8], trait: goalNetDiscYellow1} # disc46
+  - {pos: [-1224.4, 49.6], trait: goalNetDiscYellow2} # disc47
+  - {pos: [-1224.4, 43.4], trait: goalNetDiscBlue1} # disc48
+  - {pos: [-1224.4, 37.2], trait: goalNetDiscBlue2} # disc49
+  - {pos: [-1224.4, 31.0], trait: goalNetDiscYellow1} # disc50
+  - {pos: [-1224.4, 24.8], trait: goalNetDiscYellow2} # disc51
+  - {pos: [-1224.4, 18.6], trait: goalNetDiscBlue1} # disc52
+  - {pos: [-1224.4, 12.4], trait: goalNetDiscBlue2} # disc53
+  - {pos: [-1224.4, 6.2], trait: goalNetDiscYellow1} # disc54
+  - {pos: [-1224.4, 0], trait: goalNetDiscYellow2} # disc55
+  - {pos: [-1224.4, -6.2], trait: goalNetDiscBlue1} # disc56
+  - {pos: [-1224.4, -12.4], trait: goalNetDiscBlue2} # disc57
+  - {pos: [-1224.4, -18.6], trait: goalNetDiscYellow1} # disc58
+  - {pos: [-1224.4, -24.8], trait: goalNetDiscYellow2} # disc59
+  - {pos: [-1224.4, -31.0], trait: goalNetDiscBlue1} # disc60
+  - {pos: [-1224.4, -37.2], trait: goalNetDiscBlue2} # disc61
+  - {pos: [-1224.4, -43.4], trait: goalNetDiscYellow1} # disc62
+  - {pos: [-1224.4, -49.6], trait: goalNetDiscYellow2} # disc63
+  - {pos: [-1224.4, -55.8], trait: goalNetDiscBlue1} # disc64
+  - {pos: [-1224.4, -62.0], trait: goalNetDiscBlue2} # disc65
+  - {pos: [-1224.4, -68.2], trait: goalNetDiscYellow1} # disc66
+  - {pos: [-1224.4, -74.4], trait: goalNetDiscYellow2} # disc67
+  - {pos: [-1224.4, -80.6], trait: goalNetDiscBlue1} # disc68
+  - {pos: [-1224.4, -86.8], trait: goalNetDiscBlue2} # disc69
+  - {pos: [-1224.4, -93.0], trait: goalNetDiscYellow1} # disc70
+  - {pos: [-1224.4, -99.2], trait: goalNetDiscYellow2} # disc71
+  - {pos: [-1224.4, -105.4], trait: goalNetDiscBlue1} # disc72
+  - {pos: [-1224.4, -111.6], trait: goalNetDiscBlue2} # disc73
+  # UPPER NET
+  - {pos: [-1212.0, -124], trait: goalNetDiscYellow1} # disc74
+  - {pos: [-1205.8, -124], trait: goalNetDiscYellow2} # disc75
+  - {pos: [-1199.6, -124], trait: goalNetDiscBlue1} # disc76
+  - {pos: [-1193.4, -124], trait: goalNetDiscBlue2} # disc77
+  - {pos: [-1187.2, -124], trait: goalNetDiscYellow1} # disc78
+  - {pos: [-1181.0, -124], trait: goalNetDiscYellow2} # disc79
+  - {pos: [-1174.8, -124], trait: goalNetDiscBlue1} # disc80
+  - {pos: [-1168.6, -124], trait: goalNetDiscBlue2} # disc81
+  - {pos: [-1162.4, -124], trait: goalNetDiscYellow1} # disc82
+# Right goalnet
+# Right goalnet
+  # LOWER NET
+  - {pos: [1162.4, 124], trait: goalNetDiscBlue1} # disc83
+  - {pos: [1168.6, 124], trait: goalNetDiscBlue2} # disc84
+  - {pos: [1174.8, 124], trait: goalNetDiscYellow1} # disc85
+  - {pos: [1181.0, 124], trait: goalNetDiscYellow2} # disc86
+  - {pos: [1187.2, 124], trait: goalNetDiscBlue1} # disc87
+  - {pos: [1193.4, 124], trait: goalNetDiscBlue2} # disc88
+  - {pos: [1199.6, 124], trait: goalNetDiscYellow1} # disc89
+  - {pos: [1205.8, 124], trait: goalNetDiscYellow2} # disc90
+  - {pos: [1212.0, 124], trait: goalNetDiscBlue1} # disc91
+  # FRONT NET
+  - {pos: [1224.4, 111.6], trait: goalNetDiscBlue2} # disc92
+  - {pos: [1224.4, 105.4], trait: goalNetDiscYellow1} # disc93
+  - {pos: [1224.4, 99.2], trait: goalNetDiscYellow2} # disc94
+  - {pos: [1224.4, 93.0], trait: goalNetDiscBlue1} # disc95
+  - {pos: [1224.4, 86.8], trait: goalNetDiscBlue2} # disc96
+  - {pos: [1224.4, 80.6], trait: goalNetDiscYellow1} # disc97
+  - {pos: [1224.4, 74.4], trait: goalNetDiscYellow2} # disc98
+  - {pos: [1224.4, 68.2], trait: goalNetDiscBlue1} # disc99
+  - {pos: [1224.4, 62.0], trait: goalNetDiscBlue2} # disc100
+  - {pos: [1224.4, 55.8], trait: goalNetDiscYellow1} # disc101
+  - {pos: [1224.4, 49.6], trait: goalNetDiscYellow2} # disc102
+  - {pos: [1224.4, 43.4], trait: goalNetDiscBlue1} # disc103
+  - {pos: [1224.4, 37.2], trait: goalNetDiscBlue2} # disc104
+  - {pos: [1224.4, 31.0], trait: goalNetDiscYellow1} # disc105
+  - {pos: [1224.4, 24.8], trait: goalNetDiscYellow2} # disc106
+  - {pos: [1224.4, 18.6], trait: goalNetDiscBlue1} # disc107
+  - {pos: [1224.4, 12.4], trait: goalNetDiscBlue2} # disc108
+  - {pos: [1224.4, 6.2], trait: goalNetDiscYellow1} # disc109
+  - {pos: [1224.4, 0], trait: goalNetDiscYellow2} # disc110
+  - {pos: [1224.4, -6.2], trait: goalNetDiscBlue1} # disc111
+  - {pos: [1224.4, -12.4], trait: goalNetDiscBlue2} # disc112
+  - {pos: [1224.4, -18.6], trait: goalNetDiscYellow1} # disc113
+  - {pos: [1224.4, -24.8], trait: goalNetDiscYellow2} # disc114
+  - {pos: [1224.4, -31.0], trait: goalNetDiscBlue1} # disc115
+  - {pos: [1224.4, -37.2], trait: goalNetDiscBlue2} # disc116
+  - {pos: [1224.4, -43.4], trait: goalNetDiscYellow1} # disc117
+  - {pos: [1224.4, -49.6], trait: goalNetDiscYellow2} # disc118
+  - {pos: [1224.4, -55.8], trait: goalNetDiscBlue1} # disc119
+  - {pos: [1224.4, -62.0], trait: goalNetDiscBlue2} # disc120
+  - {pos: [1224.4, -68.2], trait: goalNetDiscYellow1} # disc121
+  - {pos: [1224.4, -74.4], trait: goalNetDiscYellow2} # disc122
+  - {pos: [1224.4, -80.6], trait: goalNetDiscBlue1} # disc123
+  - {pos: [1224.4, -86.8], trait: goalNetDiscBlue2} # disc124
+  - {pos: [1224.4, -93.0], trait: goalNetDiscYellow1} # disc125
+  - {pos: [1224.4, -99.2], trait: goalNetDiscYellow2} # disc126
+  - {pos: [1224.4, -105.4], trait: goalNetDiscBlue1} # disc127
+  - {pos: [1224.4, -111.6], trait: goalNetDiscBlue2} # disc128
+  # UPPER NET
+  - {pos: [1212.0, -124], trait: goalNetDiscYellow1} # disc129
+  - {pos: [1205.8, -124], trait: goalNetDiscYellow2} # disc130
+  - {pos: [1199.6, -124], trait: goalNetDiscBlue1} # disc131
+  - {pos: [1193.4, -124], trait: goalNetDiscBlue2} # disc132
+  - {pos: [1187.2, -124], trait: goalNetDiscYellow1} # disc133
+  - {pos: [1181.0, -124], trait: goalNetDiscYellow2} # disc134
+  - {pos: [1174.8, -124], trait: goalNetDiscBlue1} # disc135
+  - {pos: [1168.6, -124], trait: goalNetDiscBlue2} # disc136
+  - {pos: [1162.4, -124], trait: goalNetDiscYellow1} # disc137
+playerPhysics: {bCoef: 0.3, acceleration: 0.12, kickStrength: 5.65, color: "C0FF00"}
+ballPhysics: disc0
+spawnDistance: 560
+#spawnDistance: 1000
+joints:
+# unknown joints
+  - {d0: 16, d1: 17, length: 2298, color: EC7458} # 0
+  - {d0: 18, d1: 19, length: 2298, color: 48BEF9} # 1
+  - {d0: 20, d1: 21, length: 2298, color: EC7458} # 2
+  - {d0: 22, d1: 23, length: 2298, color: 48BEF9} # 3
+# goalnet joints
+# left goalnet
+  # LOWER NET
+  - {d0: 8, d1: 28, trait: goalNetJoint, color: FF0000} # 4
+  - {d0: 28, d1: 29, trait: goalNetJoint, color: FF1A00} # 5
+  - {d0: 29, d1: 30, trait: goalNetJoint, color: FF3500} # 6
+  - {d0: 30, d1: 31, trait: goalNetJoint, color: FF4F00} # 7
+  - {d0: 31, d1: 32, trait: goalNetJoint, color: FF6A00} # 8
+  - {d0: 32, d1: 33, trait: goalNetJoint, color: FF8400} # 9
+  - {d0: 33, d1: 34, trait: goalNetJoint, color: FF9E00} # 10
+  - {d0: 34, d1: 35, trait: goalNetJoint, color: FFB900} # 11
+  - {d0: 35, d1: 36, trait: goalNetJoint, color: FFD300} # 12
+  - {d0: 36, d1: 24, trait: goalNetJoint, color: FFED00} # 13
+
+  # FRONT NET
+  - {d0: 24, d1: 37, trait: goalNetJoint, color: F4FF00} # 14
+  - {d0: 37, d1: 38, trait: goalNetJoint, color: DAFF00} # 15
+  - {d0: 38, d1: 39, trait: goalNetJoint, color: BFFF00} # 16
+  - {d0: 39, d1: 40, trait: goalNetJoint, color: A5FF00} # 17
+  - {d0: 40, d1: 41, trait: goalNetJoint, color: 8AFF00} # 18
+  - {d0: 41, d1: 42, trait: goalNetJoint, color: 70FF00} # 19
+  - {d0: 42, d1: 43, trait: goalNetJoint, color: 55FF00} # 20
+  - {d0: 43, d1: 44, trait: goalNetJoint, color: 3BFF00} # 21
+  - {d0: 44, d1: 45, trait: goalNetJoint, color: 20FF00} # 22
+  - {d0: 45, d1: 46, trait: goalNetJoint, color: 06FF00} # 23
+  - {d0: 46, d1: 47, trait: goalNetJoint, color: 00FF13} # 24
+  - {d0: 47, d1: 48, trait: goalNetJoint, color: 00FF2D} # 25
+  - {d0: 48, d1: 49, trait: goalNetJoint, color: 00FF48} # 26
+  - {d0: 49, d1: 50, trait: goalNetJoint, color: 00FF62} # 27
+  - {d0: 50, d1: 51, trait: goalNetJoint, color: 00FF7C} # 28
+  - {d0: 51, d1: 52, trait: goalNetJoint, color: 00FF97} # 29
+  - {d0: 52, d1: 53, trait: goalNetJoint, color: 00FFB1} # 30
+  - {d0: 53, d1: 54, trait: goalNetJoint, color: 00FFCC} # 31
+  - {d0: 54, d1: 55, trait: goalNetJoint, color: 00FFE6} # 32
+  - {d0: 55, d1: 56, trait: goalNetJoint, color: 00FCFF} # 33
+  - {d0: 56, d1: 57, trait: goalNetJoint, color: 00E1FF} # 34
+  - {d0: 57, d1: 58, trait: goalNetJoint, color: 00C7FF} # 35
+  - {d0: 58, d1: 59, trait: goalNetJoint, color: 00ACFF} # 36
+  - {d0: 59, d1: 60, trait: goalNetJoint, color: 0092FF} # 37
+  - {d0: 60, d1: 61, trait: goalNetJoint, color: 0077FF} # 38
+  - {d0: 61, d1: 62, trait: goalNetJoint, color: 005DFF} # 39
+  - {d0: 62, d1: 63, trait: goalNetJoint, color: 0042FF} # 40
+  - {d0: 63, d1: 64, trait: goalNetJoint, color: 0028FF} # 41
+  - {d0: 64, d1: 65, trait: goalNetJoint, color: 000DFF} # 42
+  - {d0: 65, d1: 66, trait: goalNetJoint, color: 0D00FF} # 43
+  - {d0: 66, d1: 67, trait: goalNetJoint, color: 2800FF} # 44
+  - {d0: 67, d1: 68, trait: goalNetJoint, color: 4200FF} # 45
+  - {d0: 68, d1: 69, trait: goalNetJoint, color: 5D00FF} # 46
+  - {d0: 69, d1: 70, trait: goalNetJoint, color: 7700FF} # 47
+  - {d0: 70, d1: 71, trait: goalNetJoint, color: 9200FF} # 48
+  - {d0: 71, d1: 72, trait: goalNetJoint, color: AC00FF} # 49
+  - {d0: 72, d1: 73, trait: goalNetJoint, color: C700FF} # 50
+  - {d0: 73, d1: 25, trait: goalNetJoint, color: E100FF} # 51
+
+  # UPPER NET
+  - {d0: 25, d1: 74, trait: goalNetJoint, color: FC00FF} # 52
+  - {d0: 74, d1: 75, trait: goalNetJoint, color: FF00E6} # 53
+  - {d0: 75, d1: 76, trait: goalNetJoint, color: FF00CC} # 54
+  - {d0: 76, d1: 77, trait: goalNetJoint, color: FF00B1} # 55
+  - {d0: 77, d1: 78, trait: goalNetJoint, color: FF0097} # 56
+  - {d0: 78, d1: 79, trait: goalNetJoint, color: FF007C} # 57
+  - {d0: 79, d1: 80, trait: goalNetJoint, color: FF0062} # 58
+  - {d0: 80, d1: 81, trait: goalNetJoint, color: FF0048} # 59
+  - {d0: 81, d1: 82, trait: goalNetJoint, color: FF002D} # 60
+  - {d0: 82, d1: 7, trait: goalNetJoint, color: FF001A} # 61
+
+# right goalnet
+  # LOWER NET
+  - {d0: 12, d1: 83, trait: goalNetJoint, color: FF0000} # 62
+  - {d0: 83, d1: 84, trait: goalNetJoint, color: FF1A00} # 63
+  - {d0: 84, d1: 85, trait: goalNetJoint, color: FF3500} # 64
+  - {d0: 85, d1: 86, trait: goalNetJoint, color: FF4F00} # 65
+  - {d0: 86, d1: 87, trait: goalNetJoint, color: FF6A00} # 66
+  - {d0: 87, d1: 88, trait: goalNetJoint, color: FF8400} # 67
+  - {d0: 88, d1: 89, trait: goalNetJoint, color: FF9E00} # 68
+  - {d0: 89, d1: 90, trait: goalNetJoint, color: FFB900} # 69
+  - {d0: 90, d1: 91, trait: goalNetJoint, color: FFD300} # 70
+  - {d0: 91, d1: 26, trait: goalNetJoint, color: FFED00} # 71
+
+  # FRONT NET
+  - {d0: 26, d1: 92, trait: goalNetJoint, color: F4FF00} # 72
+  - {d0: 92, d1: 93, trait: goalNetJoint, color: DAFF00} # 73
+  - {d0: 93, d1: 94, trait: goalNetJoint, color: BFFF00} # 74
+  - {d0: 94, d1: 95, trait: goalNetJoint, color: A5FF00} # 75
+  - {d0: 95, d1: 96, trait: goalNetJoint, color: 8AFF00} # 76
+  - {d0: 96, d1: 97, trait: goalNetJoint, color: 70FF00} # 77
+  - {d0: 97, d1: 98, trait: goalNetJoint, color: 55FF00} # 78
+  - {d0: 98, d1: 99, trait: goalNetJoint, color: 3BFF00} # 79
+  - {d0: 99, d1: 100, trait: goalNetJoint, color: 20FF00} # 80
+  - {d0: 100, d1: 101, trait: goalNetJoint, color: 06FF00} # 81
+  - {d0: 101, d1: 102, trait: goalNetJoint, color: 00FF13} # 82
+  - {d0: 102, d1: 103, trait: goalNetJoint, color: 00FF2D} # 83
+  - {d0: 103, d1: 104, trait: goalNetJoint, color: 00FF48} # 84
+  - {d0: 104, d1: 105, trait: goalNetJoint, color: 00FF62} # 85
+  - {d0: 105, d1: 106, trait: goalNetJoint, color: 00FF7C} # 86
+  - {d0: 106, d1: 107, trait: goalNetJoint, color: 00FF97} # 87
+  - {d0: 107, d1: 108, trait: goalNetJoint, color: 00FFB1} # 88
+  - {d0: 108, d1: 109, trait: goalNetJoint, color: 00FFCC} # 89
+  - {d0: 109, d1: 110, trait: goalNetJoint, color: 00FFE6} # 90
+  - {d0: 110, d1: 111, trait: goalNetJoint, color: 00FCFF} # 91
+  - {d0: 111, d1: 112, trait: goalNetJoint, color: 00E1FF} # 92
+  - {d0: 112, d1: 113, trait: goalNetJoint, color: 00C7FF} # 93
+  - {d0: 113, d1: 114, trait: goalNetJoint, color: 00ACFF} # 94
+  - {d0: 114, d1: 115, trait: goalNetJoint, color: 0092FF} # 95
+  - {d0: 115, d1: 116, trait: goalNetJoint, color: 0077FF} # 96
+  - {d0: 116, d1: 117, trait: goalNetJoint, color: 005DFF} # 97
+  - {d0: 117, d1: 118, trait: goalNetJoint, color: 0042FF} # 98
+  - {d0: 118, d1: 119, trait: goalNetJoint, color: 0028FF} # 99
+  - {d0: 119, d1: 120, trait: goalNetJoint, color: 000DFF} # 100
+  - {d0: 120, d1: 121, trait: goalNetJoint, color: 0D00FF} # 101
+  - {d0: 121, d1: 122, trait: goalNetJoint, color: 2800FF} # 102
+  - {d0: 122, d1: 123, trait: goalNetJoint, color: 4200FF} # 103
+  - {d0: 123, d1: 124, trait: goalNetJoint, color: 5D00FF} # 104
+  - {d0: 124, d1: 125, trait: goalNetJoint, color: 7700FF} # 105
+  - {d0: 125, d1: 126, trait: goalNetJoint, color: 9200FF} # 106
+  - {d0: 126, d1: 127, trait: goalNetJoint, color: AC00FF} # 107
+  - {d0: 127, d1: 128, trait: goalNetJoint, color: C700FF} # 108
+  - {d0: 128, d1: 27, trait: goalNetJoint, color: E100FF} # 109
+
+  # UPPER NET
+  - {d0: 27, d1: 129, trait: goalNetJoint, color: FC00FF} # 110
+  - {d0: 129, d1: 130, trait: goalNetJoint, color: FF00E6} # 111
+  - {d0: 130, d1: 131, trait: goalNetJoint, color: FF00CC} # 112
+  - {d0: 131, d1: 132, trait: goalNetJoint, color: FF00B1} # 113
+  - {d0: 132, d1: 133, trait: goalNetJoint, color: FF0097} # 114
+  - {d0: 133, d1: 134, trait: goalNetJoint, color: FF007C} # 115
+  - {d0: 134, d1: 135, trait: goalNetJoint, color: FF0062} # 116
+  - {d0: 135, d1: 136, trait: goalNetJoint, color: FF0048} # 117
+  - {d0: 136, d1: 137, trait: goalNetJoint, color: FF002D} # 118
+  - {d0: 137, d1: 11, trait: goalNetJoint, color: FF001A} # 119
+# GOALNET SUPPORTS
+  # left goalnet supports
+  - {d0: 24, d1: 10, trait: goalNetSupport} # 69
+  - {d0: 25, d1: 9, trait: goalNetSupport} # 70
+  # right goalnet supports
+  - {d0: 27, d1: 13, trait: goalNetSupport} # 71
+  - {d0: 26, d1: 14, trait: goalNetSupport} # 72
+# TEST SUPPORTS
+  - {d0: 60 , d1: 7, trait: goalNetJoint1} # 73
+  - {d0: 50, d1: 8, trait: goalNetJoint1} # 74
+  - {d0: 115 , d1: 11, trait: goalNetJoint1} # 75
+  - {d0: 105, d1: 12, trait: goalNetJoint1} # 76
+
+  - {d0: 55 , d1: 7, trait: goalNetJoint1} # 77
+  - {d0: 55, d1: 8, trait: goalNetJoint1} # 78
+  - {d0: 110 , d1: 11, trait: goalNetJoint1} # 79
+  - {d0: 110, d1: 12, trait: goalNetJoint1} # 80
+
+traits:
+  goalPost:
+    radius: 5
+    bCoef: 2
+    invMass: 0
+    cGroup: [ball]
+  goalPostInside:
+    radius: 3
+    invMass: 6
+    damping: 0.9
+    bCoef: 0.3
+    color: "f4f0ec"
+    cMask: all
+  goalPostSupport:
+    radius: 3
+    bCoef: 2
+    invMass: 0
+    color: f4f0ec 
+    cGroup: [ball]
+# NETS
+  goalNetDisc:
+    radius: 3
+    invMass: 6
+    damping: 0.9
+    bCoef: 0.3
+    color: "FFFFFF"
+    cMask: all
+  goalNetDiscBlue1:
+    radius: 3
+    invMass: 6
+    damping: 0.9
+    bCoef: 0.3
+    color: "0000FF"
+    cMask: all
+  goalNetDiscBlue2:
+    radius: 3
+    invMass: 6
+    damping: 0.9
+    bCoef: 0.3
+    color: "0047AB"
+    cMask: all
+  goalNetDiscYellow1:
+    radius: 3
+    invMass: 6
+    damping: 0.9
+    bCoef: 0.3
+    color: "FFFF00"
+    cMask: all
+  goalNetDiscYellow2:
+    radius: 3
+    invMass: 6
+    damping: 0.9
+    bCoef: 0.3
+    color: "FFEA00"
+    cMask: all
+  goalNetJoint:
+    length: [0, 1]
+    color: f4f0ec
+    strength: 0.05
+  goalNetSupport:
+    color: f4f0ec
+    length: [0, 0]
+    strength: 0.01
+  goalNetJoint1:
+    length: [0, 0]
+    color: transparent
+    strength: 0.0002
+  Star:
+    cMask: []
+    color: "80a372"

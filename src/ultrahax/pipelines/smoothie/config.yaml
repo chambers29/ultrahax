@@ -1,0 +1,39 @@
+name: smoothie
+description: Convert .json stadium files into inline YAML templates.
+enabled: true
+verbose: true
+version: 1
+
+input:
+  source_dir: data/dirty_json
+  source_file: null
+  pattern: "*.json"
+
+output:
+  target_dir: data/dirty_yamls
+  overwrite: true
+
+settings:
+  stop_on_error: true
+  dry_run: false
+
+context:
+  initial_values: {}
+
+steps:
+  - name: 01_collect_json_files
+    enabled: true
+    depends_on: []
+    params: {}
+
+  - name: 02_convert_to_inline_yaml
+    enabled: true
+    depends_on:
+      - 01_collect_hbs_files
+    params: {}
+
+  - name: 03_save_yaml
+    enabled: true
+    depends_on:
+      - 02_convert_to_inline_yaml
+    params: {}

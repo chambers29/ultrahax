@@ -1,0 +1,12 @@
+{
+  "name": "ultrahax",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Utilities for generating HaxBall stadium files from YAML templates.",
+  "scripts": {
+    "generate:stadium": "node src/ultrahax/template_generator/stadium_generator.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

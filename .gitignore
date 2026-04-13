@@ -366,3 +366,6 @@ data/dirty_hbs/*.hbs
 
 # Generated files
 final_maps/
+
+# VSCode settings, extensions, and launch configurations
+.vscode/

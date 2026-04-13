@@ -369,3 +369,6 @@ final_maps/
 
 # VSCode settings, extensions, and launch configurations
 .vscode/
+
+# Tests
+test/

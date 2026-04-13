@@ -362,7 +362,7 @@ __marimo__/
 
 # Data folder
 data/dirty_yamls
-data/dirty_hbs/*.hbs
+data/dirty_json/*.json
 
 # Generated files
 final_maps/

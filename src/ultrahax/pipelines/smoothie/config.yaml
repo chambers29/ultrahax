@@ -1,13 +1,13 @@
 name: smoothie
-description: Convert .hbs files into inline YAML templates.
+description: Convert .json stadium files into inline YAML templates.
 enabled: true
 verbose: true
 version: 1
 
 input:
-  source_dir: data/dirty_hbs
+  source_dir: data/dirty_json
   source_file: null
-  pattern: "*.hbs"
+  pattern: "*.json"
 
 output:
   target_dir: data/dirty_yamls
@@ -21,7 +21,7 @@ context:
   initial_values: {}
 
 steps:
-  - name: 01_collect_hbs_files
+  - name: 01_collect_json_files
     enabled: true
     depends_on: []
     params: {}

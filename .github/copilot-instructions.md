@@ -77,7 +77,7 @@ steps:
 
 ### Wikis
 - [Chat Commands](https://github.com/haxball/haxball-issues/wiki/Chat-Commands)
-- [Stadium File (.hbs)](https://github.com/haxball/haxball-issues/wiki/Stadium-(.hbs)-File)
+- [Stadium File](https://github.com/haxball/haxball-issues/wiki/Stadium-(.hbs)-File)
 - [Collision Flags](https://github.com/haxball/haxball-issues/wiki/Collision-Flags)
 - [Headless Host](https://github.com/haxball/haxball-issues/wiki/Headless-Host)
 

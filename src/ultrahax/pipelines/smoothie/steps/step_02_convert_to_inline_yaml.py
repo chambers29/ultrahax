@@ -102,8 +102,8 @@ SmartYamlDumper.add_representer(dict, _represent_dict)
 SmartYamlDumper.add_representer(RootBlockDict, _represent_root_block_dict)
 
 
-def _convert_hbs_to_inline_yaml(raw_hbs: str) -> str:
-    parsed = json.loads(raw_hbs)
+def _convert_json_to_inline_yaml(raw_json: str) -> str:
+    parsed = json.loads(raw_json)
     prepared = _prepare_structure(parsed, is_root=True)
 
     yaml_text = yaml.dump(
@@ -119,22 +119,22 @@ def _convert_hbs_to_inline_yaml(raw_hbs: str) -> str:
 
 
 def run(context: dict) -> dict:
-    hbs_files = context.get("hbs_files")
+    json_files = context.get("json_files")
     target_dir = context.get("target_dir")
     overwrite = context.get("overwrite", False)
 
-    if hbs_files is None:
-        raise ValueError("Missing 'hbs_files' in context.")
+    if json_files is None:
+        raise ValueError("Missing 'json_files' in context.")
     if not target_dir:
         raise ValueError("Missing 'target_dir' in context.")
 
     results = []
 
-    for source_file in hbs_files:
+    for source_file in json_files:
         with open(source_file, "r", encoding="utf-8") as file:
-            raw_hbs = file.read()
+            raw_json = file.read()
 
-        inline_yaml = _convert_hbs_to_inline_yaml(raw_hbs)
+        inline_yaml = _convert_json_to_inline_yaml(raw_json)
 
         results.append(
             {

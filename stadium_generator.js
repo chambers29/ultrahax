@@ -20,7 +20,7 @@ const LIST_FIELDS = new Set([
 ]);
 
 function printUsage() {
-  console.log('Usage: node src/ultrahax/template_generator/stadium_generator.js [input.yaml|template-name] [output.hbs]');
+  console.log('Usage: node stadium_generator.js [input.yaml|template-name] [output.json]');
   console.log(`Templates directory: ${path.relative(process.cwd(), TEMPLATES_DIR)}`);
 }
 
@@ -227,7 +227,7 @@ function resolveOutputPath(inputPath, outputArg) {
   }
 
   const inputBaseName = path.basename(inputPath, path.extname(inputPath));
-  return path.join(GENERATED_STADIUMS_DIR, `${inputBaseName}.hbs`);
+  return path.join(GENERATED_STADIUMS_DIR, `${inputBaseName}.json`);
 }
 
 async function main() {

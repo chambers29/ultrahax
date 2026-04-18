@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HaxBall Stadium Visualizer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #1a1a2e; color: #e0e0e0; display: flex; height: 100vh; overflow: hidden; }
+
+  #sidebar {
+    width: 320px; min-width: 320px; background: #16213e; display: flex; flex-direction: column;
+    border-right: 1px solid #0f3460;
+  }
+  #sidebar h2 { padding: 12px 16px; background: #0f3460; font-size: 14px; letter-spacing: 1px; }
+  #file-controls { padding: 12px 16px; border-bottom: 1px solid #0f3460; }
+  #file-controls label {
+    display: inline-block; padding: 8px 16px; background: #e94560; color: #fff; border-radius: 4px;
+    cursor: pointer; font-size: 13px; font-weight: 600;
+  }
+  #file-controls label:hover { background: #c73650; }
+  #file-controls input { display: none; }
+  #file-name { margin-top: 8px; font-size: 12px; color: #aaa; word-break: break-all; }
+
+  #stadium-info { padding: 10px 16px; border-bottom: 1px solid #0f3460; font-size: 12px; line-height: 1.6; }
+  #stadium-info .label { color: #888; }
+  #stadium-info .value { color: #e94560; font-weight: 600; }
+
+  #filter-bar { padding: 8px 16px; border-bottom: 1px solid #0f3460; display: flex; flex-wrap: wrap; gap: 4px; }
+  .filter-btn {
+    padding: 3px 8px; border-radius: 3px; font-size: 11px; cursor: pointer;
+    border: 1px solid #333; background: #1a1a2e; color: #ccc; transition: all 0.15s;
+  }
+  .filter-btn.active { border-color: currentColor; font-weight: 600; }
+  .filter-btn[data-type="vertexes"] { color: #00d2ff; }
+  .filter-btn[data-type="segments"] { color: #ffd700; }
+  .filter-btn[data-type="goals"] { color: #ff6b6b; }
+  .filter-btn[data-type="discs"] { color: #a29bfe; }
+  .filter-btn[data-type="planes"] { color: #55efc4; }
+  .filter-btn[data-type="joints"] { color: #fd79a8; }
+
+  #element-list { flex: 1; overflow-y: auto; font-size: 12px; }
+  #element-list::-webkit-scrollbar { width: 6px; }
+  #element-list::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  .el-item {
+    padding: 6px 16px; border-bottom: 1px solid #0d1b30; cursor: pointer; transition: background 0.1s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .el-item:hover, .el-item.highlighted { background: #1e3a5f; }
+  .el-item.selected { background: #2a4a6f; border-left: 3px solid #e94560; }
+  .el-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .el-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .el-index { color: #555; font-size: 10px; min-width: 24px; }
+
+  #canvas-container { flex: 1; position: relative; background: #111; overflow: hidden; }
+  canvas { display: block; width: 100%; height: 100%; }
+
+  #tooltip {
+    position: absolute; pointer-events: none; background: rgba(15,15,30,0.95); border: 1px solid #e94560;
+    border-radius: 6px; padding: 10px 14px; font-size: 12px; line-height: 1.5; max-width: 320px;
+    display: none; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  #tooltip .tt-title { color: #e94560; font-weight: 700; margin-bottom: 4px; }
+  #tooltip .tt-row { display: flex; gap: 8px; }
+  #tooltip .tt-key { color: #888; min-width: 60px; }
+  #tooltip .tt-val { color: #eee; word-break: break-all; }
+
+  #controls-overlay {
+    position: absolute; bottom: 12px; right: 12px; display: flex; gap: 6px; z-index: 50;
+  }
+  .ctrl-btn {
+    width: 32px; height: 32px; border-radius: 4px; border: 1px solid #333; background: rgba(20,20,40,0.85);
+    color: #ccc; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .ctrl-btn:hover { background: rgba(40,40,80,0.9); color: #fff; }
+
+  #help-overlay {
+    position: absolute; top: 12px; right: 12px; font-size: 11px; color: #666; z-index: 50;
+    background: rgba(10,10,20,0.7); padding: 8px 12px; border-radius: 4px; line-height: 1.6;
+  }
+
+  #drop-zone {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: #555; z-index: 10;
+  }
+  #drop-zone.drag-over { background: rgba(233,69,96,0.1); border: 2px dashed #e94560; color: #e94560; }
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h2>STADIUM VISUALIZER</h2>
+  <div id="file-controls">
+    <label>📂 Load JSON<input type="file" id="file-input" accept=".json" multiple></label>
+    <div id="file-name">No file loaded</div>
+  </div>
+  <div id="stadium-info"></div>
+  <div id="filter-bar">
+    <button class="filter-btn active" data-type="vertexes">● Vertexes</button>
+    <button class="filter-btn active" data-type="segments">━ Segments</button>
+    <button class="filter-btn active" data-type="goals">▬ Goals</button>
+    <button class="filter-btn active" data-type="discs">◉ Discs</button>
+    <button class="filter-btn active" data-type="planes">▤ Planes</button>
+    <button class="filter-btn active" data-type="joints">⫘ Joints</button>
+  </div>
+  <div id="element-list"></div>
+</div>
+
+<div id="canvas-container">
+  <canvas id="canvas"></canvas>
+  <div id="tooltip"></div>
+  <div id="drop-zone">Drag & drop a .json stadium file or use the file picker</div>
+  <div id="help-overlay">
+    Scroll: zoom · Drag: pan · Click: select · Hover: inspect<br>
+    Shift+Click: multi-select · R: reset view
+  </div>
+  <div id="controls-overlay">
+    <button class="ctrl-btn" id="btn-zoomin" title="Zoom In">+</button>
+    <button class="ctrl-btn" id="btn-zoomout" title="Zoom Out">−</button>
+    <button class="ctrl-btn" id="btn-reset" title="Reset View">⟲</button>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const tooltip = document.getElementById('tooltip');
+const elList = document.getElementById('element-list');
+const fileInput = document.getElementById('file-input');
+const fileNameEl = document.getElementById('file-name');
+const infoEl = document.getElementById('stadium-info');
+const dropZone = document.getElementById('drop-zone');
+
+let stadium = null;
+let resolvedElements = []; // flat list: { type, index, data, resolved }
+let cam = { x: 0, y: 0, zoom: 0.35 };
+let dragging = false;
+let dragStart = { x: 0, y: 0 };
+let mouseWorld = { x: 0, y: 0 };
+let mouseScreen = { x: 0, y: 0 };
+let hoveredEl = null;
+let selectedEls = new Set();
+let visibleTypes = new Set(['vertexes', 'segments', 'goals', 'discs', 'planes', 'joints']);
+
+const TYPE_COLORS = {
+  vertexes: '#00d2ff',
+  segments: '#ffd700',
+  goals: '#ff6b6b',
+  discs: '#a29bfe',
+  planes: '#55efc4',
+  joints: '#fd79a8',
+};
+
+const TRAIT_DEFAULTS = {
+  ballArea:     { vis: false, bCoef: 1, cMask: ['ball'],  cGroup: ['ball'] },
+  goalPost:     { radius: 8, invMass: 0, bCoef: 0.5, cMask: ['all'], cGroup: ['wall'], color: 'FFCCCC' },
+  goalNet:      { vis: true, bCoef: 0.1, cMask: ['all'], cGroup: ['wall'], curve: 0, color: 'C7E6BD' },
+  goalNetRed:   { vis: true, bCoef: 0.1, cMask: ['all'], cGroup: ['wall'], curve: 0, color: 'DC6A6A' },
+  goalNetBlue:  { vis: true, bCoef: 0.1, cMask: ['all'], cGroup: ['wall'], curve: 0, color: '6A6ADC' },
+  goalPostInside: { radius: 2, invMass: 0, bCoef: 0, cMask: ['all'], cGroup: ['wall'], color: '000000' },
+  goalSupport:  { radius: 2, invMass: 0, bCoef: 0, cMask: ['all'], cGroup: ['wall'], color: '333333' },
+  kickOffBarrier: { vis: false, bCoef: 0.1, cGroup: ['redKO', 'blueKO'], cMask: ['red', 'blue'] },
+  line:         { vis: true, bCoef: 1, cMask: ['all'], cGroup: ['wall'], color: 'C7E6BD' },
+  cornerflag:   { radius: 3, invMass: 0, bCoef: 1, cMask: ['ball'], cGroup: ['wall'], color: 'FFFF00' },
+};
+
+function resolveTrait(obj, stadiumTraits) {
+  let base = {};
+  if (obj.trait && TRAIT_DEFAULTS[obj.trait]) base = { ...TRAIT_DEFAULTS[obj.trait] };
+  if (obj.trait && stadiumTraits && stadiumTraits[obj.trait]) base = { ...base, ...stadiumTraits[obj.trait] };
+  return { ...base, ...obj };
+}
+
+// ─── File loading ────────────────────────────────────────
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length) loadFile(e.target.files[0]);
+});
+
+['dragenter', 'dragover'].forEach(ev => {
+  dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+});
+['dragleave', 'drop'].forEach(ev => {
+  dropZone.addEventListener(ev, (e) => { e.preventDefault(); dropZone.classList.remove('drag-over'); });
+});
+dropZone.addEventListener('drop', (e) => {
+  if (e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);
+});
+
+function loadFile(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      loadStadium(data, file.name);
+    } catch (err) {
+      alert('Invalid JSON: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
+function loadStadium(data, name) {
+  stadium = data;
+  fileNameEl.textContent = name || stadium.name || 'unknown';
+  dropZone.style.display = 'none';
+
+  infoEl.innerHTML = [
+    field('Name', stadium.name),
+    field('Size', `${stadium.width} × ${stadium.height}`),
+    field('BG', `${stadium.bg?.type || '?'} ${stadium.bg?.width}×${stadium.bg?.height}`),
+    field('Vertexes', stadium.vertexes?.length || 0),
+    field('Segments', stadium.segments?.length || 0),
+    field('Goals', stadium.goals?.length || 0),
+    field('Discs', stadium.discs?.length || 0),
+    field('Planes', stadium.planes?.length || 0),
+    field('Joints', stadium.joints?.length || 0),
+  ].join('');
+
+  buildElements();
+  rebuildList();
+  resetView();
+  render();
+}
+
+function field(label, value) {
+  return `<span class="label">${label}:</span> <span class="value">${value}</span><br>`;
+}
+
+function buildElements() {
+  resolvedElements = [];
+  const traits = stadium.traits || {};
+  for (const type of ['vertexes', 'segments', 'goals', 'discs', 'planes', 'joints']) {
+    const arr = stadium[type];
+    if (!arr) continue;
+    arr.forEach((item, i) => {
+      const resolved = resolveTrait(item, traits);
+      resolvedElements.push({ type, index: i, data: item, resolved });
+    });
+  }
+}
+
+// ─── Sidebar list ────────────────────────────────────────
+function rebuildList() {
+  elList.innerHTML = '';
+  for (const el of resolvedElements) {
+    if (!visibleTypes.has(el.type)) continue;
+    const div = document.createElement('div');
+    div.className = 'el-item';
+    div.dataset.uid = `${el.type}-${el.index}`;
+
+    const dot = document.createElement('span');
+    dot.className = 'el-dot';
+    dot.style.background = TYPE_COLORS[el.type];
+
+    const idx = document.createElement('span');
+    idx.className = 'el-index';
+    idx.textContent = `#${el.index}`;
+
+    const label = document.createElement('span');
+    label.className = 'el-label';
+    label.textContent = describeElement(el);
+
+    div.append(dot, idx, label);
+    div.addEventListener('click', (e) => onListClick(el, e));
+    div.addEventListener('mouseenter', () => onListHover(el));
+    div.addEventListener('mouseleave', () => onListLeave(el));
+    elList.appendChild(div);
+  }
+}
+
+function describeElement(el) {
+  const d = el.data;
+  const r = el.resolved;
+  switch (el.type) {
+    case 'vertexes': return `(${d.x}, ${d.y})${d.trait ? ' ' + d.trait : ''}`;
+    case 'segments': return `v${d.v0}→v${d.v1}${d.curve ? ' c' + d.curve : ''}${d.trait ? ' ' + d.trait : ''}`;
+    case 'goals': return `[${d.p0}] → [${d.p1}] team:${d.team}`;
+    case 'discs': return `(${d.pos?.[0]}, ${d.pos?.[1]}) r:${r.radius ?? '?'}${d.trait ? ' ' + d.trait : ''}`;
+    case 'planes': return `normal:[${d.normal}] dist:${d.dist}${d.trait ? ' ' + d.trait : ''}`;
+    case 'joints': return `d${d.d0}↔d${d.d1}${d.trait ? ' ' + d.trait : ''}${d.strength ? ' str:' + d.strength : ''}`;
+    default: return JSON.stringify(d).slice(0, 60);
+  }
+}
+
+function onListClick(el, e) {
+  const uid = `${el.type}-${el.index}`;
+  if (e.shiftKey) {
+    if (selectedEls.has(uid)) selectedEls.delete(uid); else selectedEls.add(uid);
+  } else {
+    selectedEls.clear();
+    selectedEls.add(uid);
+  }
+  syncListSelection();
+  render();
+}
+function onListHover(el) { hoveredEl = el; render(); }
+function onListLeave() { hoveredEl = null; render(); }
+
+function syncListSelection() {
+  elList.querySelectorAll('.el-item').forEach(div => {
+    div.classList.toggle('selected', selectedEls.has(div.dataset.uid));
+  });
+}
+
+// ─── Filters ─────────────────────────────────────────────
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.type;
+    btn.classList.toggle('active');
+    if (visibleTypes.has(t)) visibleTypes.delete(t); else visibleTypes.add(t);
+    rebuildList();
+    render();
+  });
+});
+
+// ─── Canvas resize ───────────────────────────────────────
+function resize() {
+  const cont = document.getElementById('canvas-container');
+  canvas.width = cont.clientWidth * devicePixelRatio;
+  canvas.height = cont.clientHeight * devicePixelRatio;
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  render();
+}
+window.addEventListener('resize', resize);
+resize();
+
+// ─── Camera ──────────────────────────────────────────────
+function screenToWorld(sx, sy) {
+  const cw = canvas.width / devicePixelRatio;
+  const ch = canvas.height / devicePixelRatio;
+  return {
+    x: (sx - cw / 2) / cam.zoom + cam.x,
+    y: (sy - ch / 2) / cam.zoom + cam.y,
+  };
+}
+function worldToScreen(wx, wy) {
+  const cw = canvas.width / devicePixelRatio;
+  const ch = canvas.height / devicePixelRatio;
+  return {
+    x: (wx - cam.x) * cam.zoom + cw / 2,
+    y: (wy - cam.y) * cam.zoom + ch / 2,
+  };
+}
+
+function resetView() {
+  cam.x = 0; cam.y = 0;
+  if (stadium) {
+    const cw = canvas.width / devicePixelRatio;
+    const ch = canvas.height / devicePixelRatio;
+    const margin = 1.15;
+    cam.zoom = Math.min(cw / (stadium.width * 2 * margin), ch / (stadium.height * 2 * margin));
+  }
+}
+
+canvas.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const factor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+  const cw = canvas.width / devicePixelRatio;
+  const ch = canvas.height / devicePixelRatio;
+  const wx = (e.offsetX - cw / 2) / cam.zoom + cam.x;
+  const wy = (e.offsetY - ch / 2) / cam.zoom + cam.y;
+  cam.zoom *= factor;
+  cam.zoom = Math.max(0.01, Math.min(10, cam.zoom));
+  cam.x = wx - (e.offsetX - cw / 2) / cam.zoom;
+  cam.y = wy - (e.offsetY - ch / 2) / cam.zoom;
+  render();
+}, { passive: false });
+
+canvas.addEventListener('mousedown', (e) => {
+  if (e.button === 0) { dragging = true; dragStart = { x: e.offsetX, y: e.offsetY, cx: cam.x, cy: cam.y }; }
+});
+canvas.addEventListener('mousemove', (e) => {
+  mouseScreen = { x: e.offsetX, y: e.offsetY };
+  mouseWorld = screenToWorld(e.offsetX, e.offsetY);
+  if (dragging) {
+    cam.x = dragStart.cx - (e.offsetX - dragStart.x) / cam.zoom;
+    cam.y = dragStart.cy - (e.offsetY - dragStart.y) / cam.zoom;
+  }
+  updateHover();
+  render();
+});
+canvas.addEventListener('mouseup', (e) => {
+  if (dragging && Math.abs(e.offsetX - dragStart.x) < 4 && Math.abs(e.offsetY - dragStart.y) < 4) {
+    handleCanvasClick(e);
+  }
+  dragging = false;
+});
+canvas.addEventListener('mouseleave', () => { dragging = false; hoveredEl = null; tooltip.style.display = 'none'; render(); });
+
+document.addEventListener('keydown', (e) => { if (e.key === 'r' || e.key === 'R') { resetView(); render(); } });
+document.getElementById('btn-zoomin').addEventListener('click', () => { cam.zoom *= 1.3; render(); });
+document.getElementById('btn-zoomout').addEventListener('click', () => { cam.zoom /= 1.3; render(); });
+document.getElementById('btn-reset').addEventListener('click', () => { resetView(); render(); });
+
+// ─── Hit testing ─────────────────────────────────────────
+function updateHover() {
+  if (!stadium || dragging) return;
+  const mx = mouseWorld.x, my = mouseWorld.y;
+  let best = null, bestDist = 15 / cam.zoom;
+
+  for (const el of resolvedElements) {
+    if (!visibleTypes.has(el.type)) continue;
+    let dist = Infinity;
+    if (el.type === 'vertexes') {
+      dist = Math.hypot(el.data.x - mx, el.data.y - my);
+    } else if (el.type === 'discs' && el.data.pos) {
+      dist = Math.hypot(el.data.pos[0] - mx, el.data.pos[1] - my) - (el.resolved.radius || 0);
+      if (dist < 0) dist = 0;
+    } else if (el.type === 'segments') {
+      dist = distToSegment(el, mx, my);
+    } else if (el.type === 'goals') {
+      const p0 = el.data.p0, p1 = el.data.p1;
+      if (p0 && p1) dist = distToLine(p0[0], p0[1], p1[0], p1[1], mx, my);
+    }
+    if (dist < bestDist) { bestDist = dist; best = el; }
+  }
+  hoveredEl = best;
+  showTooltip(best);
+}
+
+function distToLine(x0, y0, x1, y1, mx, my) {
+  const dx = x1 - x0, dy = y1 - y0;
+  const len2 = dx * dx + dy * dy;
+  if (len2 === 0) return Math.hypot(mx - x0, my - y0);
+  let t = ((mx - x0) * dx + (my - y0) * dy) / len2;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(mx - (x0 + t * dx), my - (y0 + t * dy));
+}
+
+function distToSegment(el, mx, my) {
+  if (!stadium.vertexes) return Infinity;
+  const v0 = stadium.vertexes[el.data.v0];
+  const v1 = stadium.vertexes[el.data.v1];
+  if (!v0 || !v1) return Infinity;
+  // For curved segments, approximate with the arc
+  const curve = el.data.curve || el.resolved.curve || 0;
+  if (Math.abs(curve) < 1) {
+    return distToLine(v0.x, v0.y, v1.x, v1.y, mx, my);
+  }
+  // Arc: sample points
+  const arc = computeArc(v0.x, v0.y, v1.x, v1.y, curve);
+  if (!arc) return distToLine(v0.x, v0.y, v1.x, v1.y, mx, my);
+  let minD = Infinity;
+  const steps = 20;
+  for (let i = 0; i <= steps; i++) {
+    const angle = arc.startAngle + (arc.endAngle - arc.startAngle) * i / steps;
+    const px = arc.cx + arc.r * Math.cos(angle);
+    const py = arc.cy + arc.r * Math.sin(angle);
+    minD = Math.min(minD, Math.hypot(mx - px, my - py));
+  }
+  return minD;
+}
+
+function handleCanvasClick(e) {
+  if (hoveredEl) {
+    const uid = `${hoveredEl.type}-${hoveredEl.index}`;
+    if (e.shiftKey) {
+      if (selectedEls.has(uid)) selectedEls.delete(uid); else selectedEls.add(uid);
+    } else {
+      selectedEls.clear();
+      selectedEls.add(uid);
+    }
+  } else if (!e.shiftKey) {
+    selectedEls.clear();
+  }
+  syncListSelection();
+  render();
+}
+
+// ─── Tooltip ─────────────────────────────────────────────
+function showTooltip(el) {
+  if (!el) { tooltip.style.display = 'none'; return; }
+  const d = el.data;
+  const r = el.resolved;
+  let rows = `<div class="tt-title">${el.type.slice(0, -2 + (el.type === 'vertexes' ? 0 : 1))} #${el.index}</div>`;
+
+  const addRow = (k, v) => { if (v !== undefined && v !== null) rows += `<div class="tt-row"><span class="tt-key">${k}</span><span class="tt-val">${v}</span></div>`; };
+
+  if (el.type === 'vertexes') {
+    addRow('pos', `(${d.x}, ${d.y})`);
+    addRow('trait', d.trait);
+    addRow('bCoef', d.bCoef);
+    addRow('cMask', fmtArr(r.cMask));
+    addRow('cGroup', fmtArr(r.cGroup));
+    if (d.color) addRow('color', `<span style="color:#${d.color}">■</span> ${d.color}`);
+  } else if (el.type === 'segments') {
+    addRow('v0 → v1', `${d.v0} → ${d.v1}`);
+    addRow('trait', d.trait);
+    addRow('curve', d.curve);
+    addRow('vis', r.vis);
+    addRow('bCoef', d.bCoef ?? r.bCoef);
+    addRow('cMask', fmtArr(r.cMask));
+    addRow('cGroup', fmtArr(r.cGroup));
+    if (r.color) addRow('color', `<span style="color:#${r.color}">■</span> ${r.color}`);
+  } else if (el.type === 'goals') {
+    addRow('p0', `(${d.p0})`);
+    addRow('p1', `(${d.p1})`);
+    addRow('team', d.team);
+  } else if (el.type === 'discs') {
+    addRow('pos', `(${d.pos?.[0]}, ${d.pos?.[1]})`);
+    addRow('radius', r.radius);
+    addRow('trait', d.trait);
+    addRow('invMass', r.invMass);
+    addRow('bCoef', r.bCoef);
+    addRow('cMask', fmtArr(r.cMask));
+    addRow('cGroup', fmtArr(r.cGroup));
+    if (r.color) addRow('color', `<span style="color:#${r.color}">■</span> ${r.color}`);
+  } else if (el.type === 'planes') {
+    addRow('normal', `[${d.normal}]`);
+    addRow('dist', d.dist);
+    addRow('trait', d.trait);
+    addRow('bCoef', r.bCoef);
+    addRow('cMask', fmtArr(r.cMask));
+    addRow('cGroup', fmtArr(r.cGroup));
+  } else if (el.type === 'joints') {
+    addRow('d0 ↔ d1', `${d.d0} ↔ ${d.d1}`);
+    const jd0 = stadium.discs[d.d0 - 1];
+    const jd1 = stadium.discs[d.d1 - 1];
+    if (jd0?.pos) addRow('d0 pos', `(${jd0.pos[0]}, ${jd0.pos[1]})`);
+    if (jd1?.pos) addRow('d1 pos', `(${jd1.pos[0]}, ${jd1.pos[1]})`);
+    addRow('trait', d.trait);
+    addRow('length', JSON.stringify(d.length));
+    addRow('strength', d.strength);
+    if (d.color) addRow('color', `<span style="color:#${d.color}">■</span> ${d.color}`);
+  }
+
+  tooltip.innerHTML = rows;
+  tooltip.style.display = 'block';
+  const tx = mouseScreen.x + 16;
+  const ty = mouseScreen.y + 16;
+  const cont = document.getElementById('canvas-container');
+  tooltip.style.left = Math.min(tx, cont.clientWidth - tooltip.offsetWidth - 8) + 'px';
+  tooltip.style.top = Math.min(ty, cont.clientHeight - tooltip.offsetHeight - 8) + 'px';
+}
+
+function fmtArr(a) { return Array.isArray(a) ? a.join(', ') : a; }
+
+// ─── Arc computation ─────────────────────────────────────
+function computeArc(x0, y0, x1, y1, curveDeg) {
+  if (Math.abs(curveDeg) < 0.1) return null;
+  const curveRad = curveDeg * Math.PI / 180;
+  const mx = (x0 + x1) / 2, my = (y0 + y1) / 2;
+  const dx = x1 - x0, dy = y1 - y0;
+  const halfLen = Math.hypot(dx, dy) / 2;
+  if (halfLen < 0.001) return null;
+  const r = halfLen / Math.sin(curveRad / 2);
+  const d = r * Math.cos(curveRad / 2);
+  const nx = -dy / (halfLen * 2), ny = dx / (halfLen * 2);
+  const cx = mx + nx * d, cy = my + ny * d;
+  const startAngle = Math.atan2(y0 - cy, x0 - cx);
+  const endAngle = Math.atan2(y1 - cy, x1 - cx);
+  const ccw = curveDeg < 0;
+  return { cx, cy, r: Math.abs(r), startAngle, endAngle, ccw };
+}
+
+// ─── Rendering ───────────────────────────────────────────
+function render() {
+  const cw = canvas.width / devicePixelRatio;
+  const ch = canvas.height / devicePixelRatio;
+  ctx.clearRect(0, 0, cw, ch);
+  if (!stadium) return;
+
+  ctx.save();
+  ctx.translate(cw / 2, ch / 2);
+  ctx.scale(cam.zoom, cam.zoom);
+  ctx.translate(-cam.x, -cam.y);
+
+  drawBackground();
+  if (visibleTypes.has('planes')) drawPlanes();
+  if (visibleTypes.has('segments')) drawSegments();
+  if (visibleTypes.has('goals')) drawGoals();
+  if (visibleTypes.has('discs')) drawDiscs();
+  if (visibleTypes.has('joints')) drawJoints();
+  if (visibleTypes.has('vertexes')) drawVertexes();
+  drawHighlights();
+
+  ctx.restore();
+}
+
+function isSelected(type, index) { return selectedEls.has(`${type}-${index}`); }
+function isHovered(type, index) { return hoveredEl && hoveredEl.type === type && hoveredEl.index === index; }
+
+function drawBackground() {
+  const bg = stadium.bg;
+  if (!bg) return;
+
+  // Draw outer bounds
+  ctx.fillStyle = '#2d2d2d';
+  ctx.fillRect(-stadium.width, -stadium.height, stadium.width * 2, stadium.height * 2);
+
+  // Draw field
+  const col = bg.color ? '#' + bg.color : '#4a8c3f';
+  ctx.fillStyle = col;
+  ctx.fillRect(-bg.width, -bg.height, bg.width * 2, bg.height * 2);
+
+  // Kick-off circle
+  if (bg.kickOffRadius) {
+    ctx.strokeStyle = 'rgba(199, 230, 189, 0.5)';
+    ctx.lineWidth = 2 / cam.zoom;
+    ctx.beginPath();
+    ctx.arc(0, 0, bg.kickOffRadius, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  // Center line
+  ctx.strokeStyle = 'rgba(199, 230, 189, 0.5)';
+  ctx.lineWidth = 2 / cam.zoom;
+  ctx.beginPath();
+  ctx.moveTo(0, -bg.height);
+  ctx.lineTo(0, bg.height);
+  ctx.stroke();
+
+  // Center dot
+  ctx.fillStyle = 'rgba(199, 230, 189, 0.5)';
+  ctx.beginPath();
+  ctx.arc(0, 0, 4 / cam.zoom, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawVertexes() {
+  if (!stadium.vertexes) return;
+  stadium.vertexes.forEach((v, i) => {
+    const sel = isSelected('vertexes', i);
+    const hov = isHovered('vertexes', i);
+    const r = (sel || hov) ? 6 / cam.zoom : 3.5 / cam.zoom;
+    const alpha = (v.vis === false && !sel && !hov) ? 0.25 : 0.8;
+
+    ctx.beginPath();
+    ctx.arc(v.x, v.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = sel ? '#ff4444' : hov ? '#ffffff' : v.color ? `#${v.color}` : TYPE_COLORS.vertexes;
+    ctx.globalAlpha = alpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    if (sel || hov) {
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5 / cam.zoom;
+      ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.font = `${11 / cam.zoom}px monospace`;
+      ctx.fillText(`#${i}`, v.x + 6 / cam.zoom, v.y - 6 / cam.zoom);
+    }
+  });
+}
+
+function drawSegments() {
+  if (!stadium.segments || !stadium.vertexes) return;
+  stadium.segments.forEach((seg, i) => {
+    const v0 = stadium.vertexes[seg.v0];
+    const v1 = stadium.vertexes[seg.v1];
+    if (!v0 || !v1) return;
+
+    const r = resolveTrait(seg, stadium.traits || {});
+    const sel = isSelected('segments', i);
+    const hov = isHovered('segments', i);
+    const vis = r.vis !== false;
+    if (!vis && !sel && !hov) {
+      ctx.globalAlpha = 0.12;
+    }
+
+    const color = sel ? '#ff4444' : hov ? '#ffffff' : r.color ? `#${r.color}` : TYPE_COLORS.segments;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = (sel || hov ? 3 : 1.8) / cam.zoom;
+    ctx.beginPath();
+
+    const curve = seg.curve || r.curve || 0;
+    if (Math.abs(curve) > 0.1) {
+      const arc = computeArc(v0.x, v0.y, v1.x, v1.y, curve);
+      if (arc) {
+        ctx.arc(arc.cx, arc.cy, arc.r, arc.startAngle, arc.endAngle, arc.ccw);
+      } else {
+        ctx.moveTo(v0.x, v0.y);
+        ctx.lineTo(v1.x, v1.y);
+      }
+    } else {
+      ctx.moveTo(v0.x, v0.y);
+      ctx.lineTo(v1.x, v1.y);
+    }
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    if (sel || hov) {
+      ctx.fillStyle = '#fff';
+      ctx.font = `${10 / cam.zoom}px monospace`;
+      const mx = (v0.x + v1.x) / 2, my = (v0.y + v1.y) / 2;
+      ctx.fillText(`seg#${i}`, mx + 4 / cam.zoom, my - 4 / cam.zoom);
+    }
+  });
+}
+
+function drawGoals() {
+  if (!stadium.goals) return;
+  stadium.goals.forEach((goal, i) => {
+    if (!goal.p0 || !goal.p1) return;
+    const sel = isSelected('goals', i);
+    const hov = isHovered('goals', i);
+    const teamColor = goal.team === 'red' ? '#e74c3c' : '#3498db';
+    ctx.strokeStyle = sel ? '#ff4444' : hov ? '#ffffff' : teamColor;
+    ctx.lineWidth = (sel || hov ? 5 : 3.5) / cam.zoom;
+    ctx.setLineDash([8 / cam.zoom, 4 / cam.zoom]);
+    ctx.beginPath();
+    ctx.moveTo(goal.p0[0], goal.p0[1]);
+    ctx.lineTo(goal.p1[0], goal.p1[1]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    if (sel || hov) {
+      ctx.fillStyle = '#fff';
+      ctx.font = `${11 / cam.zoom}px monospace`;
+      const mx = (goal.p0[0] + goal.p1[0]) / 2, my = (goal.p0[1] + goal.p1[1]) / 2;
+      ctx.fillText(`goal#${i} (${goal.team})`, mx + 6 / cam.zoom, my);
+    }
+  });
+}
+
+function drawDiscs() {
+  if (!stadium.discs) return;
+  stadium.discs.forEach((disc, i) => {
+    if (!disc.pos) return;
+    const r = resolveTrait(disc, stadium.traits || {});
+    const radius = r.radius || 0;
+    const sel = isSelected('discs', i);
+    const hov = isHovered('discs', i);
+
+    const drawR = Math.max(radius, 3 / cam.zoom);
+    const color = sel ? '#ff4444' : hov ? '#ffffff' : r.color ? `#${String(r.color).replace(/^ff/i, '')}` : TYPE_COLORS.discs;
+
+    ctx.beginPath();
+    ctx.arc(disc.pos[0], disc.pos[1], drawR, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.globalAlpha = radius === 0 ? 0.3 : 0.7;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    if (sel || hov) {
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.5 / cam.zoom;
+      ctx.stroke();
+      ctx.fillStyle = '#fff';
+      ctx.font = `${10 / cam.zoom}px monospace`;
+      ctx.fillText(`disc#${i}${r.trait ? ' ' + r.trait : ''}`, disc.pos[0] + drawR + 4 / cam.zoom, disc.pos[1] - 4 / cam.zoom);
+    }
+  });
+}
+
+function drawPlanes() {
+  if (!stadium.planes) return;
+  const extent = Math.max(stadium.width, stadium.height) * 2;
+  stadium.planes.forEach((plane, i) => {
+    if (!plane.normal || plane.dist === undefined) return;
+    const r = resolveTrait(plane, stadium.traits || {});
+    const sel = isSelected('planes', i);
+    const hov = isHovered('planes', i);
+
+    const nx = plane.normal[0], ny = plane.normal[1];
+    const px = nx * plane.dist, py = ny * plane.dist;
+    const tx = -ny, ty = nx;
+
+    ctx.strokeStyle = sel ? '#ff4444' : hov ? '#ffffff' : TYPE_COLORS.planes;
+    ctx.lineWidth = (sel || hov ? 2.5 : 1) / cam.zoom;
+    ctx.globalAlpha = sel || hov ? 0.8 : 0.25;
+    ctx.setLineDash([6 / cam.zoom, 6 / cam.zoom]);
+    ctx.beginPath();
+    ctx.moveTo(px - tx * extent, py - ty * extent);
+    ctx.lineTo(px + tx * extent, py + ty * extent);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+  });
+}
+
+function drawJoints() {
+  if (!stadium.joints || !stadium.discs) return;
+  stadium.joints.forEach((joint, i) => {
+    // In HaxBall, disc 0 = ball (implicit), so joint d0/d1 are 1-indexed
+    const d0 = stadium.discs[joint.d0 - 1];
+    const d1 = stadium.discs[joint.d1 - 1];
+    if (!d0?.pos || !d1?.pos) return;
+    const sel = isSelected('joints', i);
+    const hov = isHovered('joints', i);
+
+    ctx.strokeStyle = sel ? '#ff4444' : hov ? '#ffffff' : joint.color ? `#${joint.color}` : TYPE_COLORS.joints;
+    ctx.lineWidth = (sel || hov ? 2.5 : 1.2) / cam.zoom;
+    ctx.beginPath();
+    ctx.moveTo(d0.pos[0], d0.pos[1]);
+    ctx.lineTo(d1.pos[0], d1.pos[1]);
+    ctx.stroke();
+  });
+}
+
+function drawHighlights() {
+  for (const uid of selectedEls) {
+    const [type, idx] = uid.split('-');
+    const index = parseInt(idx);
+    drawElementHighlightRing(type, index);
+  }
+}
+
+function drawElementHighlightRing(type, index) {
+  if (type === 'segments' && stadium.vertexes && stadium.segments) {
+    const seg = stadium.segments[index];
+    if (!seg) return;
+    const v0 = stadium.vertexes[seg.v0];
+    const v1 = stadium.vertexes[seg.v1];
+    if (!v0 || !v1) return;
+    // Highlight connected vertexes
+    [v0, v1].forEach(v => {
+      ctx.beginPath();
+      ctx.arc(v.x, v.y, 6 / cam.zoom, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+      ctx.lineWidth = 1 / cam.zoom;
+      ctx.stroke();
+    });
+  }
+}
+
+// ─── Initial render ──────────────────────────────────────
+render();
+</script>
+</body>
+</html>

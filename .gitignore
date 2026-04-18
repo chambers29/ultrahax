@@ -366,6 +366,7 @@ data/dirty_json/*.json
 
 # Generated files
 final_maps/
+headless/dist/
 
 # VSCode settings, extensions, and launch configurations
 .vscode/

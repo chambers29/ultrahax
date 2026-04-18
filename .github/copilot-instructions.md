@@ -29,6 +29,9 @@ src/ultrahax/
 
 stadium_generator.js   — YAML templates → .json stadiums (inverse of smoothie pipeline)
 
+headless/
+  room.js              — HaxBall headless host script (room creation, custom stadium, chat commands)
+
 data/
   dirty_json/          — Raw .json stadium input files
   dirty_yamls/         — Smoothie pipeline output
@@ -95,4 +98,7 @@ run-pipeline count_to_five
 
 # Generate stadium from YAML template
 node stadium_generator.js [template.yaml] [output.json]
+
+# Run headless host (info mode in Node, real use in browser)
+node headless/room.js
 ```

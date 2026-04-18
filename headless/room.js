@@ -64,7 +64,11 @@ room.onGameStop = function() {
 
 room.onPlayerBallKick = function(player) {
   rsTrackTouch(player);
-  rsOnKickThrowIn(player);
+  if (rsState.kickOff) {
+    rsState.kickOff = false;
+    return;
+  }
+  rsOnKickThrowIn(room, player);
 };
 
 room.onGameTick = function() {

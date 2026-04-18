@@ -136,6 +136,19 @@ function applyTopLevelDefaults(stadium) {
     }
   }
 
+  // Extract goal entries (have 'team' + 'p0'/'p1') from segments into goals
+  if (Array.isArray(stadium.segments)) {
+    const realSegments = [];
+    for (const entry of stadium.segments) {
+      if (isPlainObject(entry) && entry.team != null && entry.p0 != null && entry.p1 != null) {
+        stadium.goals.push(entry);
+      } else {
+        realSegments.push(entry);
+      }
+    }
+    stadium.segments = realSegments;
+  }
+
   return stadium;
 }
 

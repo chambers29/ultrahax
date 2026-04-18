@@ -565,6 +565,14 @@
       ]
     },
     {
+      "x": -1210,
+      "y": -124,
+      "bCoef": 0.1,
+      "cMask": [],
+      "bias": 0,
+      "curve": 5
+    },
+    {
       "x": -1150,
       "y": 124,
       "bCoef": 0.1,
@@ -573,6 +581,14 @@
         "red",
         "blue"
       ]
+    },
+    {
+      "x": -1210,
+      "y": 124,
+      "bCoef": 0.1,
+      "cMask": [],
+      "bias": 0,
+      "curve": 5
     },
     {
       "x": -1250,
@@ -599,6 +615,13 @@
         "red",
         "blue"
       ]
+    },
+    {
+      "x": 1210,
+      "y": 124,
+      "bCoef": 0.1,
+      "cMask": [],
+      "curve": -5
     },
     {
       "x": 1150,
@@ -611,6 +634,13 @@
       ]
     },
     {
+      "x": 1210,
+      "y": -124,
+      "bCoef": 0.1,
+      "cMask": [],
+      "curve": -5
+    },
+    {
       "x": 1250,
       "y": -158,
       "bCoef": 0,
@@ -625,110 +655,6 @@
       "cMask": [
         "ball"
       ]
-    },
-    {
-      "x": 1148.5306719232,
-      "y": -646.5043537920002,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
-    },
-    {
-      "x": 1148.5306719232,
-      "y": -600,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
-    },
-    {
-      "x": 1148.5306719232,
-      "y": 646.5043537920002,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
-    },
-    {
-      "x": 1148.5306719232,
-      "y": 600,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
-    },
-    {
-      "x": -1148.5306719232,
-      "y": -646.5043537920002,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
-    },
-    {
-      "x": -1148.5306719232,
-      "y": -600,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
-    },
-    {
-      "x": -1148.5306719232,
-      "y": 646.5043537920002,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
-    },
-    {
-      "x": -1148.5306719232,
-      "y": 600,
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "vis": false,
-      "_selected": true,
-      "_data": {
-        "mirror": {}
-      }
     }
   ],
   "segments": [
@@ -1160,172 +1086,6 @@
         "red",
         "blue"
       ]
-    },
-    {
-      "v0": 69,
-      "v1": 70,
-      "vis": false,
-      "color": "FFFF00",
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "cGroup": [
-        "ball"
-      ],
-      "trait": "cornerflag",
-      "_selected": true,
-      "_data": {
-        "mirror": {},
-        "arc": {
-          "a": [
-            1148.5306719232,
-            -646.5043537920002
-          ],
-          "b": [
-            1148.5306719232,
-            -600
-          ],
-          "radius": null,
-          "center": [
-            null,
-            null
-          ],
-          "from": null,
-          "to": null
-        }
-      }
-    },
-    {
-      "v0": 71,
-      "v1": 72,
-      "vis": false,
-      "color": "FFFF00",
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "cGroup": [
-        "ball"
-      ],
-      "trait": "cornerflag",
-      "_selected": true,
-      "_data": {
-        "mirror": {},
-        "arc": {
-          "a": [
-            1148.5306719232,
-            646.5043537920002
-          ],
-          "b": [
-            1148.5306719232,
-            600
-          ],
-          "radius": null,
-          "center": [
-            null,
-            null
-          ],
-          "from": null,
-          "to": null
-        }
-      }
-    },
-    {
-      "v0": 73,
-      "v1": 74,
-      "vis": false,
-      "color": "FFFF00",
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "cGroup": [
-        "ball"
-      ],
-      "trait": "cornerflag",
-      "_selected": true,
-      "_data": {
-        "mirror": {},
-        "arc": {
-          "a": [
-            -1148.5306719232,
-            -646.5043537920002
-          ],
-          "b": [
-            -1148.5306719232,
-            -600
-          ],
-          "radius": null,
-          "center": [
-            null,
-            null
-          ],
-          "from": null,
-          "to": null
-        }
-      }
-    },
-    {
-      "v0": 75,
-      "v1": 76,
-      "vis": false,
-      "color": "FFFF00",
-      "bCoef": 0,
-      "cMask": [
-        "ball"
-      ],
-      "cGroup": [
-        "ball"
-      ],
-      "trait": "cornerflag",
-      "_selected": true,
-      "_data": {
-        "mirror": {},
-        "arc": {
-          "a": [
-            -1148.5306719232,
-            646.5043537920002
-          ],
-          "b": [
-            -1148.5306719232,
-            600
-          ],
-          "radius": null,
-          "center": [
-            null,
-            null
-          ],
-          "from": null,
-          "to": null
-        }
-      }
-    }
-  ],
-  "goals": [
-    {
-      "p0": [
-        -1161.45,
-        124
-      ],
-      "p1": [
-        -1161.45,
-        -124
-      ],
-      "team": "red"
-    },
-    {
-      "p0": [
-        1161.45,
-        124
-      ],
-      "p1": [
-        1161.45,
-        -124
-      ],
-      "team": "blue",
-      "radius": 0,
-      "invMass": 1
     }
   ],
   "discs": [
@@ -3778,5 +3538,31 @@
       "cMask": [],
       "color": "C7E6BD"
     }
-  }
+  },
+  "goals": [
+    {
+      "p0": [
+        -1161.45,
+        124
+      ],
+      "p1": [
+        -1161.45,
+        -124
+      ],
+      "team": "red"
+    },
+    {
+      "p0": [
+        1161.45,
+        124
+      ],
+      "p1": [
+        1161.45,
+        -124
+      ],
+      "team": "blue",
+      "radius": 0,
+      "invMass": 1
+    }
+  ]
 }

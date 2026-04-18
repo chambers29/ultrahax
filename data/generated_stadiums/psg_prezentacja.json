@@ -1,0 +1,47 @@
+{
+  "name": "PREZENTACJA ZAWODNIKA PSG",
+  "width": 500,
+  "height": 500,
+  "spawnDistance": 0,
+  "bg": {
+    "type": "none",
+    "width": 300,
+    "height": 300,
+    "kickOffRadius": 0,
+    "cornerRadius": 0,
+    "color": "00ff00"
+  },
+  "playerPhysics": {
+    "bCoef": 0.3,
+    "invMass": 0.5,
+    "damping": 0.96,
+    "acceleration": 0.12,
+    "kickingAcceleration": 0.07,
+    "kickingDamping": 0.96,
+    "kickStrength": 5.65
+  },
+  "ballPhysics": {
+    "radius": 9,
+    "bCoef": 0.5,
+    "invMass": 1.05,
+    "damping": 0.99,
+    "color": "FFFFFF",
+    "cMask": [
+      "all"
+    ],
+    "cGroup": [
+      "ball"
+    ],
+    "gravity": 1
+  },
+  "vertexes": [],
+  "segments": [],
+  "goals": [],
+  "discs": [],
+  "redSpawnPoints": [],
+  "blueSpawnPoints": [],
+  "canBeStored": false,
+  "traits": {},
+  "planes": [],
+  "joints": []
+}

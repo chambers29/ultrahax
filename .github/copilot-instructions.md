@@ -89,6 +89,67 @@ steps:
 - Stadium objects have specific field types: `bg`, `traits`, `playerPhysics`, `ballPhysics` (objects); `vertexes`, `segments`, `goals`, `discs`, `planes`, `joints` (arrays)
 - `cMask` and `cGroup` are collision flag fields (string or array of strings)
 
+### Headless API — Read (available every tick, 60fps)
+| Method | Returns |
+|--------|---------|
+| `getBallPosition()` | `{x, y}` of ball (null if no game) |
+| `getDiscProperties(discIndex)` | Full disc info: `x, y, xspeed, yspeed, xgravity, ygravity, radius, bCoeff, invMass, damping, color, cMask, cGroup` |
+| `getPlayerDiscProperties(playerId)` | Same as getDiscProperties but for a player's disc |
+| `getPlayer(id)` | `{id, name, team, admin, position}` |
+| `getPlayerList()` | Array of PlayerObjects with positions |
+| `getScores()` | `{red, blue, time, scoreLimit, timeLimit}` (null if no game) |
+| `getDiscCount()` | Number of discs (ball + players + stadium discs) |
+
+### Headless API — Write
+| Method | Effect |
+|--------|--------|
+| `setDiscProperties(discIndex, props)` | Move/stop ball (disc 0) or any disc — set `{x, y, xspeed, yspeed, cMask, cGroup}` etc. Null props are preserved |
+| `setPlayerDiscProperties(playerId, props)` | Move/modify a player's disc (position, speed, collision flags) |
+| `setPlayerTeam(playerId, team)` | Move player to team (0=spec, 1=red, 2=blue) |
+| `setPlayerAdmin(playerId, bool)` | Grant/revoke admin |
+| `setPlayerAvatar(playerId, avatar)` | Override player avatar (null to clear) |
+| `sendAnnouncement(msg, targetId?, color?, style?, sound?)` | Host announcement — styles: `"normal","bold","italic","small","small-bold","small-italic"`, sound: 0=none, 1=chat, 2=notification |
+| `sendChat(msg, targetId?)` | Chat message as host player |
+| `kickPlayer(playerId, reason, ban)` | Kick/ban player |
+| `pauseGame(bool)` | Pause/unpause |
+| `startGame()` / `stopGame()` | Start/stop game |
+| `setScoreLimit(int)` / `setTimeLimit(minutes)` | Change limits (no effect mid-game) |
+| `setCustomStadium(json)` / `setDefaultStadium(name)` | Change stadium (no effect mid-game) |
+| `setTeamsLock(bool)` | Lock/unlock team changes |
+| `setTeamColors(team, angle, textColor, colors[])` | Set team colors |
+| `setKickRateLimit(min, rate, burst)` | Kick rate limiting |
+| `reorderPlayers(playerIdList, moveToTop)` | Reorder player list |
+| `CollisionFlags` | Flag constants: `ball, red, blue, redKO, blueKO, wall, all, kick, score, c0, c1, c2, c3` |
+
+### Headless API — Events
+| Event | Signature | Notes |
+|-------|-----------|-------|
+| `onGameTick` | `() → void` | 60fps, not called when paused/stopped |
+| `onPlayerBallKick` | `(player) → void` | Player kicked the ball |
+| `onTeamGoal` | `(team) → void` | Goal scored |
+| `onPositionsReset` | `() → void` | After goal, positions reset |
+| `onPlayerJoin` | `(player) → void` | Player joined |
+| `onPlayerLeave` | `(player) → void` | Player left |
+| `onPlayerChat` | `(player, msg) → bool` | Return false to suppress message |
+| `onTeamVictory` | `(scores) → void` | Team won the game |
+| `onGameStart` | `(byPlayer) → void` | Game started (byPlayer can be null) |
+| `onGameStop` | `(byPlayer) → void` | Game stopped |
+| `onPlayerTeamChange` | `(changed, byPlayer) → void` | Team changed |
+| `onPlayerAdminChange` | `(changed, byPlayer) → void` | Admin changed |
+| `onPlayerKicked` | `(kicked, reason, ban, byPlayer) → void` | After onPlayerLeave |
+| `onGamePause` | `(byPlayer) → void` | Game paused |
+| `onGameUnpause` | `(byPlayer) → void` | Game unpaused (timer before real unpause) |
+| `onPlayerActivity` | `(player) → void` | Key press detected |
+| `onStadiumChange` | `(name, byPlayer) → void` | Stadium changed |
+| `onRoomLink` | `(url) → void` | Room URL obtained |
+
+### Headless API — Limitations
+- All state-modifying methods execute **asynchronously** — immediate reads may return stale data
+- No event for "ball crossed line" — must check position in `onGameTick`
+- No player facing direction info
+- `setCustomStadium` / `setDefaultStadium` / `setScoreLimit` / `setTimeLimit` do nothing mid-game
+- `PlayerObject.auth` and `conn` only available in `onPlayerJoin`
+
 ## Commands
 
 ```bash

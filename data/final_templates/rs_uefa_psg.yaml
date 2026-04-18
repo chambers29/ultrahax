@@ -79,15 +79,6 @@ vertexes:
   - {x: 1210, y: -124, bCoef: 0.1, cMask: [], curve: -5}
   - {x: 1250, y: -158, bCoef: 0, cMask: [ball]} # 67
   - {x: 1250, y: 158, bCoef: 0, cMask: [ball]} # 68
-  # cos od Grzecha
-  - {x: 1148.5306719232, y: -646.5043537920002, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 69
-  - {x: 1148.5306719232, y: -600, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 70
-  - {x: 1148.5306719232, y: 646.5043537920002, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 71
-  - {x: 1148.5306719232, y: 600, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 72
-  - {x: -1148.5306719232, y: -646.5043537920002, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 73
-  - {x: -1148.5306719232, y: -600, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 74
-  - {x: -1148.5306719232, y: 646.5043537920002, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 75
-  - {x: -1148.5306719232, y: 600, bCoef: 0, cMask: [ball], vis: false, _selected: true, _data: {mirror: {}}} # 76
 segments:
   - {v0: 0, v1: 1, trait: kickOffBarrier}
   - {v0: 2, v1: 3, trait: kickOffBarrier}
@@ -138,10 +129,6 @@ segments:
   - {v0: 57, v1: 58, vis: false, cMask: [c0], cGroup: [red, blue]}
   - {v0: 58, v1: 59, vis: false, cMask: [c0], cGroup: [red, blue]}
   - {v0: 59, v1: 60, vis: false, cMask: [c0], cGroup: [red, blue]}
-  - {v0: 69, v1: 70, vis: false, color: FFFF00, bCoef: 0, cMask: [ball], cGroup: [ball], trait: cornerflag, _selected: true, _data: {mirror: {}, arc: {a: [1148.5306719232, -646.5043537920002], b: [1148.5306719232, -600], radius: null, center: [null, null], from: null, to: null}}}
-  - {v0: 71, v1: 72, vis: false, color: FFFF00, bCoef: 0, cMask: [ball], cGroup: [ball], trait: cornerflag, _selected: true, _data: {mirror: {}, arc: {a: [1148.5306719232, 646.5043537920002], b: [1148.5306719232, 600], radius: null, center: [null, null], from: null, to: null}}}
-  - {v0: 73, v1: 74, vis: false, color: FFFF00, bCoef: 0, cMask: [ball], cGroup: [ball], trait: cornerflag, _selected: true, _data: {mirror: {}, arc: {a: [-1148.5306719232, -646.5043537920002], b: [-1148.5306719232, -600], radius: null, center: [null, null], from: null, to: null}}}
-  - {v0: 75, v1: 76, vis: false, color: FFFF00, bCoef: 0, cMask: [ball], cGroup: [ball], trait: cornerflag, _selected: true, _data: {mirror: {}, arc: {a: [-1148.5306719232, 646.5043537920002], b: [-1148.5306719232, 600], radius: null, center: [null, null], from: null, to: null}}}
 goals:
   - {p0: [-1161.45, 124], p1: [-1161.45, -124], team: red}
   - {p0: [1161.45, 124], p1: [1161.45, -124], team: blue, radius: 0, invMass: 1}

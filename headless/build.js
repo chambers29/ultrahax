@@ -73,10 +73,7 @@ function cleanStadium(obj) {
     const cleaned = {};
     for (const [key, value] of Object.entries(obj)) {
       if (key === '_data' || key === '_selected') continue;
-      const cleanedValue = cleanStadium(value);
-      if (cleanedValue !== null) {
-        cleaned[key] = cleanedValue;
-      }
+      cleaned[key] = cleanStadium(value);
     }
     return cleaned;
   }
@@ -134,6 +131,22 @@ function build(stadium) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   const outputPath = path.join(OUTPUT_DIR, 'room.js');
   fs.writeFileSync(outputPath, script, 'utf8');
+
+  // hotload.js — only rule files, paste into live room console to reload logic
+  const rulesDir = path.join(LIB_DIR, 'rules');
+  const ruleFiles = collectJsFiles(rulesDir);
+  if (ruleFiles.length > 0) {
+    const hotload = ruleFiles
+      .map((filePath) => {
+        const relPath = path.relative(LIB_DIR, filePath).replace(/\\/g, '/');
+        const content = fs.readFileSync(filePath, 'utf8').trimEnd();
+        return `// --- ${relPath} ---\n${content}`;
+      })
+      .join('\n\n');
+    const hotloadPath = path.join(OUTPUT_DIR, 'hotload.js');
+    fs.writeFileSync(hotloadPath, hotload, 'utf8');
+    console.log(`Hotload:  ${path.relative(process.cwd(), hotloadPath)}`);
+  }
 
   console.log(`\nBuild complete: ${path.relative(process.cwd(), outputPath)}`);
   console.log(`Stadium: ${stadium ? stadium.name : 'default (Big)'}`);
